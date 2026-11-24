@@ -8,12 +8,12 @@ affected scope and audit the consequences.
 ## Select the rule revision
 
 Use the [adoption contract](../engineering-compass/adoption.md) to resolve
-existing adoptions. For a first adoption through the Codex plugin, use Update's
-[published target procedure](../engineering-compass-update/migration-workflow.md#fetch-the-fixed-target)
-to select and verify the publisher release and its exact revision. Use Setup
-and the rules from that revision for the audit, even if the plugin cache
-changes. For an older published snapshot, use its proven full commit from
-the [release map](../engineering-compass-update/release-map.md) as the release ID.
+existing adoptions. For first adoption or the first versioned adoption of
+legacy rules, use the [published target procedure](../engineering-compass-update/migration-workflow.md#fetch-the-fixed-target)
+to select the version from the release channel. Audit the rules from the
+verified tag using this Setup procedure. For legacy adoption, capture the
+effective rules and audit their transition before recording the first
+approved version.
 
 When applying approved plugin-backed setup, create the persistent checkout
 identified in the adoption contract from the reviewed full checkout if it is
@@ -76,8 +76,8 @@ package as canonical siblings, so that Setup can read the adoption contract.
 Resolve a custom legacy copy through the local policy audit before recording
 a published revision.
 
-For a first-refresh audit requested with a staged target checkout, use the
-Setup procedure and reviewed Compass package from that exact target. Keep the
+For a first-refresh audit requested with a staged target checkout, use this
+Setup procedure and the reviewed Compass rules from that tag. Keep the
 existing adoption and discovery route active during preparation. If the
 previous source cannot be identified, report that limit and obtain explicit
 approval to adopt the audited target and its reconciled local policy.
