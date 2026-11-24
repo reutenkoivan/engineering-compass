@@ -4,52 +4,45 @@
 
 Start with the selected repository's committed adoption entry and active
 local policy. Read the base skill's [adoption contract](../engineering-compass/adoption.md).
-Resolve and inspect the rules actually in force. Capture the repository, rule
-source, adopted release and full revision, and whether the entry is versioned.
-Record the installed bundle version separately from its discovered manifest or
-the verified checkout commit for a legacy installation. Put this evidence in the
-update review before refreshing the bundle or changing repository state.
-If a refresh requires a new Codex chat, carry the same evidence into it.
-Select migrations from the repository's captured release.
+Read `Engineering Compass release` as the baseline version and verify the
+effective rule binding against that version's published tag. Record the
+installed bundle version separately when relevant to compatibility.
 
-For an older entry without a release field, establish the actual rule source.
-For a verified upstream revision, read its `plugin.json` when present. For an
-earlier published source, use its exact full commit from the release map.
-A matching installed `HEAD` alone does not establish repository adoption.
+If the repository has no approved version or its provenance cannot be
+established, retain its active rules and offer Setup's audit and explicit
+first versioned adoption. Conflicting versioned metadata requires repair.
 
 ## Fetch the fixed target
 
-Stage a checkout outside skill discovery and the consumer worktree. Use the
-latest stable GitHub Release from `reutenkoivan/engineering-compass`. Fetch
-its exact `refs/tags/v<version>` and resolve the tag to a commit. Verify that
-the version agrees with both that commit's `plugin.json` and its
-`skills/engineering-compass-update/release-map.md`. For a versioned baseline,
-fetch its exact publisher tag too and verify that it resolves to the recorded
-baseline commit. The pre-versioned rows identify their published commits
-directly. Keep the target commit and release fixed for the run. Read Setup,
-the rules and migration records from that same target. Report a missing
-published release or failed target fetch as unavailable. If the baseline tag
-cannot be verified, block map selection pending provenance.
+Use a staged Git checkout outside skill discovery and the consumer worktree.
+Fetch `refs/heads/release` from
+`https://github.com/reutenkoivan/engineering-compass.git` and retain the fetched
+snapshot locally before additional fetches. Read its
+`.agents/plugins/marketplace.json` to find the `engineering-compass` entry.
+Require its Git URL to name the publisher and its ref to be an exact
+`vMAJOR.MINOR.PATCH` tag. Fetch that tag and confirm the GitHub Release for it
+is published as a regular release. Check that the tag version agrees with
+`plugin.json` and the final row of
+`skills/engineering-compass-update/release-map.md` at that tag. Verify that
+the frozen channel's `skills/` and `plugin.json` match the tag. Report an
+unavailable channel, tag, or Release as
+a blocker and keep the current rules in use.
 
-If the legacy baseline cannot be proven, report what can and cannot be
-established about the old rules. Use the exact target's full Setup audit and
-present explicit adoption of the target and reconciliation of local policy
-for approval. Describe any remaining unknown historical effects. If the
-baseline is known but the target's map has no forward route from it, report
-the missing route and obtain a separate decision before replanning.
+Keep the verified tag fixed for the request. Use the compatible installed
+Setup and Update procedures with the rules, map and migration records from
+that tag. This applies when the channel selects `v0.1.0`, whose own Setup and
+Update use an earlier target selection procedure.
 
-Matching release IDs must identify the same published revision. Report a
-conflicting binding and establish provenance before using the map. An exact
-match completes the update check when the versioned entry and current routes
-also verify. If that revision still uses an unversioned entry
-or obsolete setup path, apply the review in
-[Record the approved revision](migrations/record-approved-revision.md).
-A newer target with no applicable migrations still requires a reviewed and
-verified revision change.
+For a migration, verify the baseline by its published version too. A matching
+target version completes the check once the existing binding and route are
+verified. An older target has no forward transition and leaves the approved
+version in force. A newer version with an empty migration list still requires
+review and approval of the change to the adopted version.
 
 ## Select instructions from the release map
 
-1. Start at the target row in the frozen map. Follow predecessor entries
+1. Use the versioned rows beginning at `0.1.0`. Start at the target row and
+   follow versioned predecessor entries
    backwards until reaching the captured baseline. Stop for a missing or
    repeated release, an ambiguous predecessor, or a path that ends before
    the baseline. Reverse the selected rows, excluding the baseline row.
@@ -61,17 +54,20 @@ verified revision change.
 3. Build the repository-specific graph from the written applicability,
    preconditions, actions and proof. A prerequisite from an earlier release
    or a skipped node needs evidence of its required condition or an approved
-   valid equivalent before a dependent step can proceed.
+   valid equivalent before a dependent step can proceed. Use historical
+   records for prerequisite evidence where applicable. Offer a delivery
+   migration as a separate action for the installation when its applicability
+   is met.
 
 ## Plan and obtain decisions
 
-Use the target's Setup procedure to audit each affected rule, repository
+Use compatible Setup with the target rules to audit each affected rule, repository
 owner, local difference, and executable projection.
 
-Show a graph from the current to the target revision with the applicable
+Show a graph from the approved to the target version with the applicable
 nodes, prerequisites, verified equivalents, reasons for skips, and blockers.
 For each decision, show the affected files, intended changes, consequences,
-and verification. Scope approval to the repository, exact revisions,
+and verification. Scope approval to the repository, exact versions,
 affected inputs, effects, and proof. Group related decisions and reuse exact
 approvals. Agree on external effects before running commands that cause them.
 If a decision leaves a required condition unsatisfied, keep the current
@@ -101,8 +97,9 @@ On a repeat run, identify the existing candidate, recheck approvals and
 postconditions, and continue only from the first unverified step. Confirm an
 uncertain effect from the repository before attempting it again.
 
-Report a verified candidate as ready. Activation occurs when the operator
+Report a verified candidate as ready with its baseline and target versions.
+Activation occurs when the operator
 selects that verified checkout for work or integrates it through the
 repository's agreed Git workflow. Reverify affected proof if integration
 changes the candidate. Confirm activation through a fresh ordinary Codex
-request in the selected context and report which commit and rules it read.
+request in the selected context and report the approved version and rules it read.

@@ -5,9 +5,9 @@ description: Adopt Engineering Compass in a repository or verify and repair its 
 
 # Engineering Compass setup
 
-When asked to audit a staged target, follow that checkout's `setup.md` and
-Compass rules. Read the current repository policy as the starting state and
-keep the existing adoption in force until a transition is approved.
+When asked to audit a staged target, use this Setup procedure with the
+target's Compass rules. Read the current repository policy as the starting
+state and keep the existing adoption in force until a transition is approved.
 
 1. Locate the target repository root and read its `AGENTS.md`, when present,
    and the local policy it routes to. For an existing adoption, resolve the

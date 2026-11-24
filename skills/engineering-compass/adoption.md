@@ -5,14 +5,14 @@ ordinary repository work to use the exact installed skill name or links to the i
 repository-relative `SKILL.md`. A versioned entry records these fields.
 
 ```text
-Engineering Compass release: <release-map ID>
+Engineering Compass release: <published version>
 Engineering Compass revision: <full upstream Git commit SHA>
 Engineering Compass rules tree: <full repository Git tree OID>
 ```
 
-The release identifies the starting row for Update. It comes from the
-approved revision's `plugin.json` or the exact legacy commit in the release
-map. The revision identifies the immutable content used for ordinary work.
+The release identifies the starting version for Update and comes from the
+approved tag's `plugin.json`. The revision identifies the immutable content used
+for ordinary work.
 The rules tree is present for a vendored copy. Its subtree is the directory
 holding the linked `SKILL.md` in the adoption commit. Setup establishes the
 source and verifies correspondence with the upstream revision. Update changes
@@ -60,7 +60,9 @@ authority for the session and verify changed adoption from a fresh context.
 ## Existing unversioned adoption
 
 Keep a proven previous source for ordinary work until the operator approves a
-transition. A named global route can use `refs/engineering-compass/legacy` in
+transition. Use Setup to audit an entry without a published version before
+starting versioned migrations. A named global route can use
+`refs/engineering-compass/legacy` in
 the selected checkout when that ref retains the exact source the route used.
 A confirmed legacy ref selects the same immutable lookup procedure.
 A legacy repo-relative entry continues to use its established copy.
