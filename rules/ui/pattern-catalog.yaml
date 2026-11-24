@@ -1,0 +1,1990 @@
+# UI classification catalog
+
+selection_policy:
+  scope: "Screen-based user interfaces across product categories."
+  matching: "Search all three pattern sections. Evaluate candidates by user goal, user needs, and task constraints."
+  product_category: "Use product category only to find references. It must never filter, prioritize, or break ties between pattern candidates."
+  compatibility: "Compatibility links are advisory. Check prerequisites, exclusions, and composition conditions for the actual task."
+  no_match: "If the catalog does not cover the task, state the gap and propose a context-specific idea with a question to verify. For a material unknown, inspect available evidence before asking."
+  source_lookup: "Use the local descriptions as starting evidence. Search available project files first for corroboration and examples. When useful, search public sources for the named work or the provided terms."
+  source_evidence: "When sources were searched, state which specific feature each source supports and what remains open. Treat static mockups as evidence of composition. Verify claims about interaction through a relevant behavioral scenario."
+  output_before_lo_fi:
+    multiple_matches: "Give the recommended pattern or composition with IDs, the closest viable alternative, the condition that determines the choice, and a question for Lo-fi."
+    single_match: "Give the sole viable pattern or composition with IDs, explain the constraint that determines the choice, and give a question for Lo-fi."
+    no_match: "State the gap and offer a context-specific idea with a question for Ideate. Follow the catalog's no_match policy."
+  identity: "Preserve IDs while meaning stays the same. Record successor IDs and split conditions when retiring an ID."
+
+screen_archetypes:
+  - id: a01
+    name: "Launchpad / Hub"
+    name_origin: "working_label_from_research"
+    problems: ["entry choices across distinct tasks"]
+    prerequisites: ["Users know the destination by task or tool name"]
+    constraints: ["Frequent repetition favors persistent navigation"]
+    contrasts:
+      - id: "c02"
+        distinction: "Entry points dominate rather than role metrics"
+    sources:
+      - kind: "research_seed"
+        entry: "A01"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: entry choices across distinct tasks. Applicability discriminator: Users know the destination by task or tool name."
+        search_terms: ["Launchpad / Hub", "entry choices across distinct tasks"]
+    aliases: ["Launchpad","Hub"]
+    compatible_with: ["l16"]
+  - id: a02
+    name: "Search-first"
+    name_origin: "working_label_from_research"
+    problems: ["start with an explicit query"]
+    prerequisites: ["Users can articulate what they want before browsing"]
+    constraints: ["Offer another discovery route for vague intent"]
+    contrasts:
+      - id: "a04"
+        distinction: "The query is primary before results exist"
+    sources:
+      - kind: "research_seed"
+        entry: "A02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: start with an explicit query. Applicability discriminator: Users can articulate what they want before browsing."
+        search_terms: ["Search-first", "start with an explicit query"]
+  - id: a03
+    name: "Search Results"
+    name_origin: "working_label_from_research"
+    problems: ["select the most relevant match for a query"]
+    prerequisites: ["Results have explainable relevance and meaningful snippets"]
+    constraints: ["Preserve query and show zero-result recovery"]
+    contrasts:
+      - id: "a04"
+        distinction: "Ranking answers a query; repeated facet refinement is secondary"
+    sources:
+      - kind: "research_seed"
+        entry: "A03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: select the most relevant match for a query. Applicability discriminator: Results have explainable relevance and meaningful snippets."
+        search_terms: ["Search Results", "select the most relevant match for a query"]
+    compatible_with: ["a04","b01","p18"]
+  - id: a04
+    name: "Faceted Explorer"
+    name_origin: "working_label_from_research"
+    problems: ["narrow a collection by independent attributes"]
+    prerequisites: ["Records expose reliable filterable attributes"]
+    constraints: ["Preserve active filters, counts where meaningful and reset"]
+    contrasts:
+      - id: "a03"
+        distinction: "Iterative refinement works even without a query"
+      - id: "a08"
+        distinction: "Lead with Faceted Explorer when users primarily narrow the collection by known attributes. Use Card Gallery to present the filtered results when previews help users recognize or compare items."
+    sources:
+      - kind: "research_seed"
+        entry: "A04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: narrow a collection by independent attributes. Applicability discriminator: Records expose reliable filterable attributes."
+        search_terms: ["Faceted Explorer", "narrow a collection by independent attributes"]
+    compatible_with: ["a03", "a08"]
+  - id: a05
+    name: "Directory / Index"
+    name_origin: "working_label_from_research"
+    problems: ["locate a known entry in an ordered collection"]
+    prerequisites: ["Stable names or categories support scanning"]
+    constraints: ["Deep nesting reduces usefulness of a flat index"]
+    contrasts:
+      - id: "a06"
+        distinction: "An index uses ordered groups without expandable ancestry"
+    sources:
+      - kind: "research_seed"
+        entry: "A05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: locate a known entry in an ordered collection. Applicability discriminator: Stable names or categories support scanning."
+        search_terms: ["Directory / Index", "locate a known entry in an ordered collection"]
+    aliases: ["Directory","Index"]
+  - id: a06
+    name: "Tree Browser"
+    name_origin: "established_term_from_research"
+    problems: ["navigate nested groups while retaining ancestry"]
+    prerequisites: ["Items have a meaningful parent-child hierarchy"]
+    constraints: ["Show focus and expansion separately; handle large branches"]
+    contrasts:
+      - id: "b05"
+        distinction: "Hierarchy is primary; comparable per-row columns are secondary"
+    sources:
+      - kind: "research_seed"
+        entry: "A06"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: navigate nested groups while retaining ancestry. Applicability discriminator: Items have a meaningful parent-child hierarchy."
+        search_terms: ["Tree Browser", "navigate nested groups while retaining ancestry"]
+      - kind: "implementation_reference"
+        title: "W3C WAI ARIA Authoring Practices Guide, Tree View Pattern"
+        description: "Expandable hierarchical items with distinct focus and selection"
+        search_terms: ["W3C WAI ARIA Authoring Practices Guide, Tree View Pattern", "Expandable hierarchical items with distinct focus and selection"]
+    compatible_with: ["l08","l17"]
+  - id: a07
+    name: "Column Browser"
+    name_origin: "working_label_from_research"
+    problems: ["follow one branch across successive levels"]
+    prerequisites: ["A chosen parent determines the next column"]
+    constraints: ["Requires room or a narrow-screen sequential adaptation"]
+    contrasts:
+      - id: "a06"
+        distinction: "Each level has its own column instead of expansion in place"
+    sources:
+      - kind: "research_seed"
+        entry: "A07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: follow one branch across successive levels. Applicability discriminator: A chosen parent determines the next column."
+        search_terms: ["Column Browser", "follow one branch across successive levels"]
+  - id: a08
+    name: "Card Gallery"
+    name_origin: "working_label_from_research"
+    problems: ["recognize items from comparable previews"]
+    prerequisites: ["Visual previews discriminate the items"]
+    constraints: ["Keep essential metadata and consistent ordering"]
+    contrasts:
+      - id: "a09"
+        distinction: "Uniform cards support row-by-row scanning"
+      - id: "a04"
+        distinction: "Lead with Card Gallery when users primarily recognize suitable items from previews. Use facets as secondary controls when reliable attributes help narrow the gallery."
+    sources:
+      - kind: "research_seed"
+        entry: "A08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: recognize items from comparable previews. Applicability discriminator: Visual previews discriminate the items."
+        search_terms: ["Card Gallery", "recognize items from comparable previews"]
+    compatible_with: ["a04", "l14"]
+  - id: a09
+    name: "Masonry Gallery"
+    name_origin: "working_label_from_research"
+    problems: ["browse variable-aspect visual items"]
+    prerequisites: ["Preview proportions carry information"]
+    constraints: ["Preserve reading and focus order across columns"]
+    contrasts:
+      - id: "a08"
+        distinction: "Variable-height arrangement preserves original aspect ratios"
+    sources:
+      - kind: "research_seed"
+        entry: "A09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: browse variable-aspect visual items. Applicability discriminator: Preview proportions carry information."
+        search_terms: ["Masonry Gallery", "browse variable-aspect visual items"]
+  - id: a10
+    name: "Media Browser"
+    name_origin: "working_label_from_research"
+    problems: ["browse media before choosing playback"]
+    prerequisites: ["Artwork and metadata help select something to play"]
+    constraints: ["Provide readable labels and predictable focus"]
+    contrasts:
+      - id: "e08"
+        distinction: "Discovery takes priority over managing an existing playback queue"
+    sources:
+      - kind: "research_seed"
+        entry: "A10"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: browse media before choosing playback. Applicability discriminator: Artwork and metadata help select something to play."
+        search_terms: ["Media Browser", "browse media before choosing playback"]
+  - id: a11
+    name: "Curated Collections"
+    name_origin: "working_label_from_research"
+    problems: ["browse editorially selected groups"]
+    prerequisites: ["A curator owns group membership and ordering"]
+    constraints: ["Expose rationale or grouping in labels where meaningful"]
+    contrasts:
+      - id: "a12"
+        distinction: "Editorial grouping is explicit and stable for a reader"
+    sources:
+      - kind: "research_seed"
+        entry: "A11"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: browse editorially selected groups. Applicability discriminator: A curator owns group membership and ordering."
+        search_terms: ["Curated Collections", "browse editorially selected groups"]
+  - id: a12
+    name: "Recommendation Feed"
+    name_origin: "working_label_from_research"
+    problems: ["discover successive personalized suggestions"]
+    prerequisites: ["A ranking or recommendation source exists"]
+    constraints: ["Show loading and stopping points; preserve position"]
+    contrasts:
+      - id: "a11"
+        distinction: "The sequence is ranked for discovery rather than hand-curated sections"
+    sources:
+      - kind: "research_seed"
+        entry: "A12"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: discover successive personalized suggestions. Applicability discriminator: A ranking or recommendation source exists."
+        search_terms: ["Recommendation Feed", "discover successive personalized suggestions"]
+  - id: a13
+    name: "Ranking / Leaderboard"
+    name_origin: "working_label_from_research"
+    problems: ["compare positions relative to peers"]
+    prerequisites: ["A common ranking measure and tie rule exist"]
+    constraints: ["Make period and ties clear; avoid implying precision"]
+    contrasts:
+      - id: "a14"
+        distinction: "Rank order is primary rather than side-by-side attributes"
+    sources:
+      - kind: "research_seed"
+        entry: "A13"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compare positions relative to peers. Applicability discriminator: A common ranking measure and tie rule exist."
+        search_terms: ["Ranking / Leaderboard", "compare positions relative to peers"]
+    aliases: ["Leaderboard"]
+  - id: a14
+    name: "Comparison Matrix"
+    name_origin: "working_label_from_research"
+    problems: ["compare common properties across alternatives"]
+    prerequisites: ["Entities have comparable attributes"]
+    constraints: ["Limit visible comparisons or provide a usable narrow view"]
+    contrasts:
+      - id: "b01"
+        distinction: "Selected objects are compared across shared attributes"
+    sources:
+      - kind: "research_seed"
+        entry: "A14"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compare common properties across alternatives. Applicability discriminator: Entities have comparable attributes."
+        search_terms: ["Comparison Matrix", "compare common properties across alternatives"]
+  - id: a15
+    name: "Map–List Explorer"
+    name_origin: "working_label_from_research"
+    problems: ["find an item by location and inspect its details"]
+    prerequisites: ["Items have geographic coordinates and a useful list representation"]
+    constraints: ["Synchronize focus and selection without unexpected viewport changes"]
+    contrasts:
+      - id: "c14"
+        distinction: "Object selection dominates rather than regional aggregate analysis"
+    sources:
+      - kind: "research_seed"
+        entry: "A15"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find an item by location and inspect its details. Applicability discriminator: Items have geographic coordinates and a useful list representation."
+        search_terms: ["Map–List Explorer", "find an item by location and inspect its details"]
+    compatible_with: ["l07","p12"]
+  - id: b01
+    name: "Data Table"
+    name_origin: "established_term_from_research"
+    problems: ["scan, sort or filter comparable records"]
+    prerequisites: ["Records share fields; users work on whole records"]
+    constraints: ["Plan visible columns, list scale and keyboard semantics"]
+    contrasts:
+      - id: "b02"
+        distinction: "Choose Editable Table when editing fields in place is central; Data Table covers reading, sorting, and filtering records."
+      - id: "b03"
+        distinction: "Rows represent records; formulas and cell ranges are outside scope"
+    sources:
+      - kind: "research_seed"
+        entry: "B01"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: scan, sort or filter comparable records. Applicability discriminator: Records share fields; users work on whole records."
+        search_terms: ["Data Table", "scan, sort or filter comparable records"]
+    compatible_with: ["a03", "l08"]
+  - id: b02
+    name: "Editable Table"
+    name_origin: "working_label_from_research"
+    problems: ["edit fields in place across many comparable records"]
+    prerequisites: ["Cells map to validated fields of stable records"]
+    constraints: ["Expose saving, failure and keyboard behavior"]
+    contrasts:
+      - id: "b03"
+        distinction: "Edits update fields; computed ranges are outside scope"
+    sources:
+      - kind: "research_seed"
+        entry: "B02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: edit fields in place across many comparable records. Applicability discriminator: Cells map to validated fields of stable records."
+        search_terms: ["Editable Table", "edit fields in place across many comparable records"]
+    compatible_with: ["l08","p13"]
+  - id: b03
+    name: "Spreadsheet"
+    name_origin: "established_term_from_research"
+    problems: ["calculate and edit interconnected cells and ranges"]
+    prerequisites: ["Users need formulas, references or range operations"]
+    constraints: ["Provide keyboard navigation and expose calculation errors"]
+    contrasts:
+      - id: "b02"
+        distinction: "The cell and range are first-class objects"
+    sources:
+      - kind: "research_seed"
+        entry: "B03"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: calculate and edit interconnected cells and ranges. Applicability discriminator: Users need formulas, references or range operations."
+        search_terms: ["Spreadsheet", "calculate and edit interconnected cells and ranges"]
+    compatible_with: ["p13"]
+    exclusions: ["Users operate on whole records and have no need for formulas or range operations"]
+  - id: b04
+    name: "Pivot / Crosstab"
+    name_origin: "working_label_from_research"
+    problems: ["compare aggregates across two or more dimensions"]
+    prerequisites: ["Measures and grouping dimensions are defined"]
+    constraints: ["Label aggregation, totals and missing values"]
+    contrasts:
+      - id: "b01"
+        distinction: "Rows and columns come from dimensions rather than fixed record fields"
+    sources:
+      - kind: "research_seed"
+        entry: "B04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compare aggregates across two or more dimensions. Applicability discriminator: Measures and grouping dimensions are defined."
+        search_terms: ["Pivot / Crosstab", "compare aggregates across two or more dimensions"]
+    aliases: ["Pivot Table","Crosstab"]
+  - id: b05
+    name: "Tree Grid"
+    name_origin: "established_term_from_research"
+    problems: ["scan comparable fields across hierarchical records"]
+    prerequisites: ["Hierarchy and tabular fields are both important"]
+    constraints: ["Define expand, selection and keyboard behavior"]
+    contrasts:
+      - id: "a06"
+        distinction: "Comparable fields remain aligned while branches expand"
+    sources:
+      - kind: "research_seed"
+        entry: "B05"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: scan comparable fields across hierarchical records. Applicability discriminator: Hierarchy and tabular fields are both important."
+        search_terms: ["Tree Grid", "scan comparable fields across hierarchical records"]
+      - kind: "implementation_reference"
+        title: "W3C WAI ARIA Authoring Practices Guide, Treegrid Pattern"
+        description: "Expandable hierarchical rows and interactive cells"
+        search_terms: ["W3C WAI ARIA Authoring Practices Guide, Treegrid Pattern", "Expandable hierarchical rows and interactive cells"]
+    compatible_with: ["l08"]
+  - id: b06
+    name: "Object Detail"
+    name_origin: "working_label_from_research"
+    problems: ["inspect one entity and its actions"]
+    prerequisites: ["One entity has stable identity and relevant fields"]
+    constraints: ["Keep state and destructive actions clear"]
+    contrasts:
+      - id: "b07"
+        distinction: "Primary attributes and immediate actions suffice"
+    sources:
+      - kind: "research_seed"
+        entry: "B06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect one entity and its actions. Applicability discriminator: One entity has stable identity and relevant fields."
+        search_terms: ["Object Detail", "inspect one entity and its actions"]
+    compatible_with: ["l08","l09"]
+  - id: b07
+    name: "Object 360° View"
+    name_origin: "working_label_from_research"
+    problems: ["understand an entity across sources and history"]
+    prerequisites: ["Several related facets inform decisions about the same entity"]
+    constraints: ["Identify source, freshness and permission differences"]
+    contrasts:
+      - id: "b06"
+        distinction: "History and relationships are essential to the decision"
+    sources:
+      - kind: "research_seed"
+        entry: "B07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: understand an entity across sources and history. Applicability discriminator: Several related facets inform decisions about the same entity."
+        search_terms: ["Object 360° View", "understand an entity across sources and history"]
+  - id: b08
+    name: "Worklist"
+    name_origin: "working_label_from_research"
+    problems: ["process a set of assigned or actionable records"]
+    prerequisites: ["Each item has a next action and completion state"]
+    constraints: ["Keep progress and eligibility understandable"]
+    contrasts:
+      - id: "b01"
+        distinction: "The collection is organized around work to finish"
+    sources:
+      - kind: "research_seed"
+        entry: "B08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: process a set of assigned or actionable records. Applicability discriminator: Each item has a next action and completion state."
+        search_terms: ["Worklist", "process a set of assigned or actionable records"]
+    compatible_with: ["b14","p14"]
+  - id: b09
+    name: "Triage Inbox"
+    name_origin: "working_label_from_research"
+    problems: ["prioritize incoming items and choose dispositions"]
+    prerequisites: ["Priority and urgency guide actions"]
+    constraints: ["Show why an item is urgent and keep review state"]
+    contrasts:
+      - id: "b08"
+        distinction: "Triage order and routing decisions are central"
+    sources:
+      - kind: "research_seed"
+        entry: "B09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: prioritize incoming items and choose dispositions. Applicability discriminator: Priority and urgency guide actions."
+        search_terms: ["Triage Inbox", "prioritize incoming items and choose dispositions"]
+    compatible_with: ["g03"]
+  - id: b10
+    name: "Kanban Board"
+    name_origin: "established_term_from_research"
+    problems: ["track or move items across one workflow dimension"]
+    prerequisites: ["Items have meaningful discrete states"]
+    constraints: ["Define allowed transitions and keyboard alternative"]
+    contrasts:
+      - id: "b11"
+        distinction: "Columns encode one primary grouping dimension"
+    sources:
+      - kind: "research_seed"
+        entry: "B10"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: track or move items across one workflow dimension. Applicability discriminator: Items have meaningful discrete states."
+        search_terms: ["Kanban Board", "track or move items across one workflow dimension"]
+    compatible_with: ["p15"]
+  - id: b11
+    name: "Swimlane Board"
+    name_origin: "working_label_from_research"
+    problems: ["track items across states and a second grouping"]
+    prerequisites: ["Two independent dimensions both matter"]
+    constraints: ["Manage density and keyboard movement across lanes"]
+    contrasts:
+      - id: "b10"
+        distinction: "Rows encode a second dimension in addition to columns"
+    sources:
+      - kind: "research_seed"
+        entry: "B11"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: track items across states and a second grouping. Applicability discriminator: Two independent dimensions both matter."
+        search_terms: ["Swimlane Board", "track items across states and a second grouping"]
+    compatible_with: ["p15"]
+  - id: b12
+    name: "File Manager"
+    name_origin: "working_label_from_research"
+    problems: ["organize and retrieve files or folders"]
+    prerequisites: ["Users need file operations and a location hierarchy"]
+    constraints: ["Explain move/copy effects and preserve selection"]
+    contrasts:
+      - id: "a06"
+        distinction: "File operations are integral, beyond navigation"
+    sources:
+      - kind: "research_seed"
+        entry: "B12"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: organize and retrieve files or folders. Applicability discriminator: Users need file operations and a location hierarchy."
+        search_terms: ["File Manager", "organize and retrieve files or folders"]
+  - id: b13
+    name: "Dual-list Selector"
+    name_origin: "working_label_from_research"
+    problems: ["select a subset from a known available collection"]
+    prerequisites: ["Membership of source and target sets is explicit"]
+    constraints: ["Handle long lists, duplicates and keyboard transfer"]
+    contrasts:
+      - id: "p14"
+        distinction: "Moving membership is the task rather than acting on a selection"
+    sources:
+      - kind: "research_seed"
+        entry: "B13"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: select a subset from a known available collection. Applicability discriminator: Membership of source and target sets is explicit."
+        search_terms: ["Dual-list Selector", "select a subset from a known available collection"]
+  - id: b14
+    name: "Bulk Review Workbench"
+    name_origin: "working_label_from_research"
+    problems: ["review many proposed decisions and apply them in batches"]
+    prerequisites: ["Items need comparable validation before confirmation"]
+    constraints: ["Show selection scope, validation and partial outcomes"]
+    contrasts:
+      - id: "b08"
+        distinction: "Review and batch commitment dominate daily item processing"
+    sources:
+      - kind: "research_seed"
+        entry: "B14"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: review many proposed decisions and apply them in batches. Applicability discriminator: Items need comparable validation before confirmation."
+        search_terms: ["Bulk Review Workbench", "review many proposed decisions and apply them in batches"]
+    compatible_with: ["b08"]
+  - id: b15
+    name: "Relationship Browser"
+    name_origin: "working_label_from_research"
+    problems: ["inspect links among entities and follow connections"]
+    prerequisites: ["Relationships carry meaning beyond entity attributes"]
+    constraints: ["Limit visual overload and show direction and types"]
+    contrasts:
+      - id: "f08"
+        distinction: "Exploration of existing relationships dominates editing"
+    sources:
+      - kind: "research_seed"
+        entry: "B15"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect links among entities and follow connections. Applicability discriminator: Relationships carry meaning beyond entity attributes."
+        search_terms: ["Relationship Browser", "inspect links among entities and follow connections"]
+  - id: c01
+    name: "KPI Dashboard"
+    name_origin: "established_term_from_research"
+    problems: ["assess current health quickly from a few measures"]
+    prerequisites: ["Measures have known definitions and comparison baselines"]
+    constraints: ["Label time window and freshness"]
+    contrasts:
+      - id: "c04"
+        distinction: "Scanning health dominates systematic reading"
+    sources:
+      - kind: "research_seed"
+        entry: "C01"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: assess current health quickly from a few measures. Applicability discriminator: Measures have known definitions and comparison baselines."
+        search_terms: ["KPI Dashboard", "assess current health quickly from a few measures"]
+    compatible_with: ["c06","p11"]
+  - id: c02
+    name: "Role-based Overview"
+    name_origin: "working_label_from_research"
+    problems: ["orient a role to relevant status and next actions"]
+    prerequisites: ["Roles have genuinely different tasks and access"]
+    constraints: ["Keep allowed actions and data scopes explicit"]
+    contrasts:
+      - id: "a01"
+        distinction: "Role context and summaries are as valuable as entry points"
+    sources:
+      - kind: "research_seed"
+        entry: "C02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: orient a role to relevant status and next actions. Applicability discriminator: Roles have genuinely different tasks and access."
+        search_terms: ["Role-based Overview", "orient a role to relevant status and next actions"]
+  - id: c03
+    name: "Analytical List Page"
+    name_origin: "working_label_from_research"
+    problems: ["relate an analytical summary to matching records"]
+    prerequisites: ["Charts and table share dimensions and filters"]
+    constraints: ["Show filter effects and record scope consistently"]
+    contrasts:
+      - id: "c01"
+        distinction: "Aggregate and underlying records are explored together"
+    sources:
+      - kind: "research_seed"
+        entry: "C03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: relate an analytical summary to matching records. Applicability discriminator: Charts and table share dimensions and filters."
+        search_terms: ["Analytical List Page", "relate an analytical summary to matching records"]
+    compatible_with: ["c05","p12"]
+  - id: c04
+    name: "Interactive Report"
+    name_origin: "working_label_from_research"
+    problems: ["answer a structured analytical question through a report"]
+    prerequisites: ["Sections and parameters support systematic interpretation"]
+    constraints: ["Keep units, definitions and context visible"]
+    contrasts:
+      - id: "c01"
+        distinction: "Structured reading and explanation dominate at-a-glance monitoring"
+    sources:
+      - kind: "research_seed"
+        entry: "C04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: answer a structured analytical question through a report. Applicability discriminator: Sections and parameters support systematic interpretation."
+        search_terms: ["Interactive Report", "answer a structured analytical question through a report"]
+  - id: c05
+    name: "Analytical Workbench"
+    name_origin: "working_label_from_research"
+    problems: ["investigate across several coordinated analytical views"]
+    prerequisites: ["Views share interpretable dimensions or linked selections"]
+    constraints: ["Expose what is linked and permit clearing cross-selection"]
+    contrasts:
+      - id: "c03"
+        distinction: "Multiple analytical views are peers rather than one chart/table pair"
+    sources:
+      - kind: "research_seed"
+        entry: "C05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: investigate across several coordinated analytical views. Applicability discriminator: Views share interpretable dimensions or linked selections."
+        search_terms: ["Analytical Workbench", "investigate across several coordinated analytical views"]
+    compatible_with: ["c03"]
+  - id: c06
+    name: "Drill-down Analytics"
+    name_origin: "working_label_from_research"
+    problems: ["explain an aggregate by following nested breakdowns"]
+    prerequisites: ["Measures can be decomposed across meaningful levels"]
+    constraints: ["Preserve breadcrumbs and aggregation scope"]
+    contrasts:
+      - id: "p11"
+        distinction: "The screen is organized around an analytical hierarchy; drill-down is the action"
+    sources:
+      - kind: "research_seed"
+        entry: "C06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: explain an aggregate by following nested breakdowns. Applicability discriminator: Measures can be decomposed across meaningful levels."
+        search_terms: ["Drill-down Analytics", "explain an aggregate by following nested breakdowns"]
+    compatible_with: ["c01"]
+  - id: c07
+    name: "Real-time Monitor"
+    name_origin: "working_label_from_research"
+    problems: ["monitor changing signals and anomalies"]
+    prerequisites: ["Update cadence and freshness can be represented"]
+    constraints: ["Distinguish stale and paused updates; avoid focus disruption"]
+    contrasts:
+      - id: "c01"
+        distinction: "Live changes and thresholds are central"
+    sources:
+      - kind: "research_seed"
+        entry: "C07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: monitor changing signals and anomalies. Applicability discriminator: Update cadence and freshness can be represented."
+        search_terms: ["Real-time Monitor", "monitor changing signals and anomalies"]
+  - id: c08
+    name: "Log Explorer"
+    name_origin: "working_label_from_research"
+    problems: ["search text or structured log records to diagnose issues"]
+    prerequisites: ["Records have timestamps and searchable fields"]
+    constraints: ["Handle high rates, sampling and search syntax"]
+    contrasts:
+      - id: "c09"
+        distinction: "Querying logs and reading messages dominate"
+    sources:
+      - kind: "research_seed"
+        entry: "C08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: search text or structured log records to diagnose issues. Applicability discriminator: Records have timestamps and searchable fields."
+        search_terms: ["Log Explorer", "search text or structured log records to diagnose issues"]
+    compatible_with: ["c09","c10","l08"]
+  - id: c09
+    name: "Event Stream"
+    name_origin: "working_label_from_research"
+    problems: ["correlate typed occurrences in a chronological stream"]
+    prerequisites: ["Events have types and meaningful identifiers"]
+    constraints: ["Show ordering limitations and handle bursts"]
+    contrasts:
+      - id: "d08"
+        distinction: "Streaming events and correlation dominate a fixed narrative"
+    sources:
+      - kind: "research_seed"
+        entry: "C09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: correlate typed occurrences in a chronological stream. Applicability discriminator: Events have types and meaningful identifiers."
+        search_terms: ["Event Stream", "correlate typed occurrences in a chronological stream"]
+    compatible_with: ["c08"]
+  - id: c10
+    name: "Trace / Waterfall Explorer"
+    name_origin: "working_label_from_research"
+    problems: ["diagnose latency by comparing durations and overlaps"]
+    prerequisites: ["Operations have comparable start and end times on a common timebase"]
+    constraints: ["Distinguish missing telemetry and temporal coincidence from causation", "Use explicit operation relationships when showing nesting or claiming dependencies", "Align associated point markers on the same timebase as the operation intervals"]
+    contrasts:
+      - id: "d08"
+        distinction: "Intervals, parallelism or nesting are essential, not only sequence"
+    sources:
+      - kind: "research_seed"
+        entry: "C10"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: diagnose latency by comparing durations and overlaps. Applicability discriminator: Operations have comparable start and end times on a common timebase."
+        search_terms: ["Trace / Waterfall Explorer", "diagnose latency by comparing durations and overlaps"]
+      - kind: "implementation_reference"
+        title: "Chrome DevTools Performance features reference, View network requests"
+        description: "Request intervals and timing breakdown on a recording timeline"
+        search_terms: ["Chrome DevTools Performance features reference, View network requests", "Request intervals and timing breakdown on a recording timeline"]
+    aliases: ["Trace Explorer","Waterfall Explorer"]
+    compatible_with: ["c08","d08","l11"]
+    exclusions: ["Point-only history with no operation intervals to inspect"]
+  - id: c11
+    name: "Heatmap Analytics"
+    name_origin: "established_term_from_research"
+    problems: ["find intensity clusters across a two-axis matrix"]
+    prerequisites: ["A common scale represents comparable cell values"]
+    constraints: ["Provide values and a legend beyond color"]
+    contrasts:
+      - id: "c12"
+        distinction: "Intensity is primary; cohort retention is optional"
+    sources:
+      - kind: "research_seed"
+        entry: "C11"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: find intensity clusters across a two-axis matrix. Applicability discriminator: A common scale represents comparable cell values."
+        search_terms: ["Heatmap Analytics", "find intensity clusters across a two-axis matrix"]
+  - id: c12
+    name: "Cohort Matrix"
+    name_origin: "working_label_from_research"
+    problems: ["compare how defined groups change over periods"]
+    prerequisites: ["Cohorts share a meaningful start point and denominator"]
+    constraints: ["Distinguish immature periods from zero values"]
+    contrasts:
+      - id: "c11"
+        distinction: "Aligned relative periods and cohort denominators define the matrix"
+    sources:
+      - kind: "research_seed"
+        entry: "C12"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compare how defined groups change over periods. Applicability discriminator: Cohorts share a meaningful start point and denominator."
+        search_terms: ["Cohort Matrix", "compare how defined groups change over periods"]
+  - id: c13
+    name: "Funnel Analytics"
+    name_origin: "working_label_from_research"
+    problems: ["find losses across defined ordered stages"]
+    prerequisites: ["Stages and eligibility have consistent definitions"]
+    constraints: ["Explain denominators and how re-entry is treated"]
+    contrasts:
+      - id: "p03"
+        distinction: "Observes conversion; the workflow executes a checkout"
+    sources:
+      - kind: "research_seed"
+        entry: "C13"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find losses across defined ordered stages. Applicability discriminator: Stages and eligibility have consistent definitions."
+        search_terms: ["Funnel Analytics", "find losses across defined ordered stages"]
+  - id: c14
+    name: "Geospatial Analytics"
+    name_origin: "working_label_from_research"
+    problems: ["inspect measures across geographic areas"]
+    prerequisites: ["Spatial aggregation or distribution is central"]
+    constraints: ["Expose scale, boundaries and missing regions"]
+    contrasts:
+      - id: "a15"
+        distinction: "Analysis of regions dominates picking a specific object"
+    sources:
+      - kind: "research_seed"
+        entry: "C14"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect measures across geographic areas. Applicability discriminator: Spatial aggregation or distribution is central."
+        search_terms: ["Geospatial Analytics", "inspect measures across geographic areas"]
+  - id: d01
+    name: "Month Calendar"
+    name_origin: "established_term_from_research"
+    problems: ["scan dates and all-day events across weeks"]
+    prerequisites: ["Month-level planning is useful"]
+    constraints: ["Provide overflow summaries and access to full days"]
+    contrasts:
+      - id: "d02"
+        distinction: "Days are primary, rather than hours"
+    sources:
+      - kind: "research_seed"
+        entry: "D01"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: scan dates and all-day events across weeks. Applicability discriminator: Month-level planning is useful."
+        search_terms: ["Month Calendar", "scan dates and all-day events across weeks"]
+  - id: d02
+    name: "Time-grid Calendar"
+    name_origin: "working_label_from_research"
+    problems: ["compare timed events and overlaps within days"]
+    prerequisites: ["Events have local dates and times"]
+    constraints: ["Show timezone and overlap handling"]
+    contrasts:
+      - id: "d01"
+        distinction: "Hour-level intervals are primary"
+    sources:
+      - kind: "research_seed"
+        entry: "D02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compare timed events and overlaps within days. Applicability discriminator: Events have local dates and times."
+        search_terms: ["Time-grid Calendar", "compare timed events and overlaps within days"]
+  - id: d03
+    name: "Agenda"
+    name_origin: "working_label_from_research"
+    problems: ["read upcoming commitments in chronological order"]
+    prerequisites: ["Users need a sequential list more than a spatial grid"]
+    constraints: ["Group time zones or periods clearly"]
+    contrasts:
+      - id: "d08"
+        distinction: "The list centers on planned commitments rather than investigation"
+    sources:
+      - kind: "research_seed"
+        entry: "D03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: read upcoming commitments in chronological order. Applicability discriminator: Users need a sequential list more than a spatial grid."
+        search_terms: ["Agenda", "read upcoming commitments in chronological order"]
+  - id: d04
+    name: "Availability Grid"
+    name_origin: "working_label_from_research"
+    problems: ["find available time slots"]
+    prerequisites: ["Availability can be evaluated for the context"]
+    constraints: ["Show timezone and distinguish unavailable slots"]
+    contrasts:
+      - id: "d02"
+        distinction: "Selectable availability dominates displaying existing events"
+    sources:
+      - kind: "research_seed"
+        entry: "D04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find available time slots. Applicability discriminator: Availability can be evaluated for the context."
+        search_terms: ["Availability Grid", "find available time slots"]
+    compatible_with: ["p06"]
+  - id: d05
+    name: "Resource Scheduler"
+    name_origin: "working_label_from_research"
+    problems: ["allocate named resources across time"]
+    prerequisites: ["Resource identity and conflicts drive allocation"]
+    constraints: ["Preserve resource headers and time scale when navigating"]
+    contrasts:
+      - id: "d06"
+        distinction: "Resource occupancy dominates dependency planning"
+    sources:
+      - kind: "research_seed"
+        entry: "D05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: allocate named resources across time. Applicability discriminator: Resource identity and conflicts drive allocation."
+        search_terms: ["resource scheduler UI resource rows bookings time slots", "schedule board equipment occupancy and booking conflicts"]
+      - kind: "implementation_reference"
+        title: "Microsoft Dynamics 365, Schedule board drag and drop"
+        description: "Illustrates timed bookings on named resource rows. Verify persistence of resource headers and the time scale together in the target workspace."
+        search_terms: ["Dynamics 365 schedule board drag and drop resource rows bookings time slots"]
+    compatible_with: ["l07"]
+  - id: d06
+    name: "Gantt Chart"
+    name_origin: "established_term_from_research"
+    problems: ["plan work durations, dependencies and milestones"]
+    prerequisites: ["Tasks have explicit duration or dependencies"]
+    constraints: ["Show baseline and schedule changes transparently"]
+    contrasts:
+      - id: "d05"
+        distinction: "Dependencies among tasks are primary"
+    sources:
+      - kind: "research_seed"
+        entry: "D06"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: plan work durations, dependencies and milestones. Applicability discriminator: Tasks have explicit duration or dependencies."
+        search_terms: ["Gantt Chart", "plan work durations, dependencies and milestones"]
+    compatible_with: ["d07"]
+  - id: d07
+    name: "Roadmap"
+    name_origin: "working_label_from_research"
+    problems: ["communicate high-level sequencing and outcomes"]
+    prerequisites: ["Long-horizon periods or milestones are meaningful"]
+    constraints: ["Show uncertainty without invented precision"]
+    contrasts:
+      - id: "d06"
+        distinction: "Strategic progression dominates scheduling individual dependencies"
+    sources:
+      - kind: "research_seed"
+        entry: "D07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: communicate high-level sequencing and outcomes. Applicability discriminator: Long-horizon periods or milestones are meaningful."
+        search_terms: ["Roadmap", "communicate high-level sequencing and outcomes"]
+    compatible_with: ["d06"]
+  - id: d08
+    name: "Event Timeline"
+    name_origin: "working_label_from_research"
+    problems: ["inspect discrete events and their chronology"]
+    prerequisites: ["Timestamped occurrences have meaningful order"]
+    constraints: ["Show ties and gaps explicitly"]
+    contrasts:
+      - id: "c10"
+        distinction: "Point events suffice; durations and overlap are not required"
+    sources:
+      - kind: "research_seed"
+        entry: "D08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect discrete events and their chronology. Applicability discriminator: Timestamped occurrences have meaningful order."
+        search_terms: ["Event Timeline", "inspect discrete events and their chronology"]
+    compatible_with: ["c10"]
+  - id: d09
+    name: "Time-series Explorer"
+    name_origin: "working_label_from_research"
+    problems: ["investigate changes in measured values over time"]
+    prerequisites: ["Samples and units are known"]
+    constraints: ["Represent missing intervals and aggregation when zooming"]
+    contrasts:
+      - id: "d08"
+        distinction: "Series values are central rather than discrete event descriptions"
+    sources:
+      - kind: "research_seed"
+        entry: "D09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: investigate changes in measured values over time. Applicability discriminator: Samples and units are known."
+        search_terms: ["Time-series Explorer", "investigate changes in measured values over time"]
+  - id: d10
+    name: "Recurrence Planner"
+    name_origin: "working_label_from_research"
+    problems: ["configure a repeating schedule and preview occurrences"]
+    prerequisites: ["Recurrence rules and exceptions can be evaluated"]
+    constraints: ["Show timezone and boundary-date behavior"]
+    contrasts:
+      - id: "d02"
+        distinction: "Rule and occurrence preview are central"
+    sources:
+      - kind: "research_seed"
+        entry: "D10"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: configure a repeating schedule and preview occurrences. Applicability discriminator: Recurrence rules and exceptions can be evaluated."
+        search_terms: ["Recurrence Planner", "configure a repeating schedule and preview occurrences"]
+  - id: e01
+    name: "Article Reader"
+    name_origin: "working_label_from_research"
+    problems: ["read a coherent long-form text"]
+    prerequisites: ["The material is primarily sequential"]
+    constraints: ["Protect line length and reading order"]
+    contrasts:
+      - id: "e02"
+        distinction: "Reading one article dominates browsing a corpus"
+    sources:
+      - kind: "research_seed"
+        entry: "E01"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: read a coherent long-form text. Applicability discriminator: The material is primarily sequential."
+        search_terms: ["Article Reader", "read a coherent long-form text"]
+    compatible_with: ["e03","g05","l09"]
+  - id: e02
+    name: "Knowledge Base Navigator"
+    name_origin: "working_label_from_research"
+    problems: ["find and read material within a documentation set"]
+    prerequisites: ["Navigation across a corpus is repeatedly needed"]
+    constraints: ["Show current location and accessible search or browse"]
+    contrasts:
+      - id: "e01"
+        distinction: "Corpus navigation and local reading coexist"
+    sources:
+      - kind: "research_seed"
+        entry: "E02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find and read material within a documentation set. Applicability discriminator: Navigation across a corpus is repeatedly needed."
+        search_terms: ["Knowledge Base Navigator", "find and read material within a documentation set"]
+    compatible_with: ["l05","l17"]
+  - id: e03
+    name: "Annotated Reader"
+    name_origin: "working_label_from_research"
+    problems: ["read material while inspecting annotations"]
+    prerequisites: ["Annotations point to stable ranges or objects"]
+    constraints: ["Handle invalidated anchors and accessible focus"]
+    contrasts:
+      - id: "e01"
+        distinction: "Annotations are part of the reading task"
+    sources:
+      - kind: "research_seed"
+        entry: "E03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: read material while inspecting annotations. Applicability discriminator: Annotations point to stable ranges or objects."
+        search_terms: ["Annotated Reader", "read material while inspecting annotations"]
+    compatible_with: ["e01"]
+  - id: e04
+    name: "Document Comparison"
+    name_origin: "working_label_from_research"
+    problems: ["compare two versions of a document"]
+    prerequisites: ["There are corresponding versions or regions"]
+    constraints: ["Preserve alignment and communicate changed sections"]
+    contrasts:
+      - id: "a14"
+        distinction: "Document alignment and differences dominate attribute comparison"
+    sources:
+      - kind: "research_seed"
+        entry: "E04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compare two versions of a document. Applicability discriminator: There are corresponding versions or regions."
+        search_terms: ["Document Comparison", "compare two versions of a document"]
+    compatible_with: ["l07"]
+  - id: e05
+    name: "Q&A Thread"
+    name_origin: "working_label_from_research"
+    problems: ["find an answer to a specific question"]
+    prerequisites: ["Questions and answers can be separately identified"]
+    constraints: ["Distinguish accepted, proposed and obsolete answers"]
+    contrasts:
+      - id: "e06"
+        distinction: "Answer discovery or acceptance structures the thread"
+    sources:
+      - kind: "research_seed"
+        entry: "E05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find an answer to a specific question. Applicability discriminator: Questions and answers can be separately identified."
+        search_terms: ["Q&A Thread", "find an answer to a specific question"]
+  - id: e06
+    name: "Forum Discussion"
+    name_origin: "working_label_from_research"
+    problems: ["follow or contribute to an ongoing discussion"]
+    prerequisites: ["Posts belong to a topic or reply structure"]
+    constraints: ["Keep chronology and reply context legible"]
+    contrasts:
+      - id: "e05"
+        distinction: "Discussion remains useful without an accepted answer"
+    sources:
+      - kind: "research_seed"
+        entry: "E06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: follow or contribute to an ongoing discussion. Applicability discriminator: Posts belong to a topic or reply structure."
+        search_terms: ["Forum Discussion", "follow or contribute to an ongoing discussion"]
+  - id: e07
+    name: "Media Player"
+    name_origin: "established_term_from_research"
+    problems: ["play or seek within one media item"]
+    prerequisites: ["Playback controls and position matter"]
+    constraints: ["Support keyboard operation and available captions"]
+    contrasts:
+      - id: "e08"
+        distinction: "Playback dominates collection and queue management"
+    sources:
+      - kind: "research_seed"
+        entry: "E07"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: play or seek within one media item. Applicability discriminator: Playback controls and position matter."
+        search_terms: ["Media Player", "play or seek within one media item"]
+    compatible_with: ["e08"]
+  - id: e08
+    name: "Playlist Browser"
+    name_origin: "working_label_from_research"
+    problems: ["play multiple items and manage their sequence"]
+    prerequisites: ["A meaningful queue or playlist exists"]
+    constraints: ["Distinguish playing, focused and selected items"]
+    contrasts:
+      - id: "a10"
+        distinction: "Queue and playback are active rather than only discovery"
+    sources:
+      - kind: "research_seed"
+        entry: "E08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: play multiple items and manage their sequence. Applicability discriminator: A meaningful queue or playlist exists."
+        search_terms: ["Playlist Browser", "play multiple items and manage their sequence"]
+    compatible_with: ["e07"]
+  - id: e09
+    name: "Immersive Viewer"
+    name_origin: "working_label_from_research"
+    problems: ["inspect one spatial or visual object in detail"]
+    prerequisites: ["The content benefits from occupying most of the view"]
+    constraints: ["Keep essential controls and a clear exit accessible"]
+    contrasts:
+      - id: "e07"
+        distinction: "Exploration of the object dominates linear playback"
+    sources:
+      - kind: "research_seed"
+        entry: "E09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect one spatial or visual object in detail. Applicability discriminator: The content benefits from occupying most of the view."
+        search_terms: ["Immersive Viewer", "inspect one spatial or visual object in detail"]
+  - id: e10
+    name: "Lesson Player"
+    name_origin: "working_label_from_research"
+    problems: ["complete a lesson and know overall progress"]
+    prerequisites: ["Lessons have meaningful completion and sequence"]
+    constraints: ["Expose how progress is determined"]
+    contrasts:
+      - id: "e07"
+        distinction: "Learning sequence and completion matter beyond playback"
+    sources:
+      - kind: "research_seed"
+        entry: "E10"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: complete a lesson and know overall progress. Applicability discriminator: Lessons have meaningful completion and sequence."
+        search_terms: ["Lesson Player", "complete a lesson and know overall progress"]
+  - id: f01
+    name: "Rich-text Editor"
+    name_origin: "working_label_from_research"
+    problems: ["write and format continuous structured prose"]
+    prerequisites: ["An editable document and formatting model exist"]
+    constraints: ["Preserve selection and accessible editing"]
+    contrasts:
+      - id: "f02"
+        distinction: "Text flow dominates manipulation of independent blocks"
+    sources:
+      - kind: "research_seed"
+        entry: "F01"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: write and format continuous structured prose. Applicability discriminator: An editable document and formatting model exist."
+        search_terms: ["Rich-text Editor", "write and format continuous structured prose"]
+  - id: f02
+    name: "Block Editor"
+    name_origin: "established_term_from_research"
+    problems: ["compose content by moving or configuring blocks"]
+    prerequisites: ["Blocks are meaningful units with their own controls"]
+    constraints: ["Provide accessible reorder and preserve document preview"]
+    contrasts:
+      - id: "f01"
+        distinction: "Blocks are directly addressable units"
+    sources:
+      - kind: "research_seed"
+        entry: "F02"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: compose content by moving or configuring blocks. Applicability discriminator: Blocks are meaningful units with their own controls."
+        search_terms: ["Block Editor", "compose content by moving or configuring blocks"]
+    compatible_with: ["f10","p15"]
+  - id: f03
+    name: "Markdown Split Editor"
+    name_origin: "working_label_from_research"
+    problems: ["write source markup while checking its rendered form"]
+    prerequisites: ["Source and preview correspond and source editing matters"]
+    constraints: ["Keep preview lag and scroll coupling predictable"]
+    contrasts:
+      - id: "f01"
+        distinction: "Both editable source and rendered preview are essential"
+    sources:
+      - kind: "research_seed"
+        entry: "F03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: write source markup while checking its rendered form. Applicability discriminator: Source and preview correspond and source editing matters."
+        search_terms: ["Markdown Split Editor", "write source markup while checking its rendered form"]
+    compatible_with: ["l07"]
+  - id: f04
+    name: "Code IDE"
+    name_origin: "established_term_from_research"
+    problems: ["edit code with project files and runtime feedback"]
+    prerequisites: ["Files and execution or diagnostic context are needed"]
+    constraints: ["Preserve document identity and expose running tasks"]
+    contrasts:
+      - id: "f05"
+        distinction: "Project files dominate rather than executable cells"
+    sources:
+      - kind: "research_seed"
+        entry: "F04"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: edit code with project files and runtime feedback. Applicability discriminator: Files and execution or diagnostic context are needed."
+        search_terms: ["Code IDE", "edit code with project files and runtime feedback"]
+    compatible_with: ["l11","l12","p17"]
+  - id: f05
+    name: "Executable Notebook"
+    name_origin: "working_label_from_research"
+    problems: ["develop an analysis via code cells and retained outputs"]
+    prerequisites: ["Users benefit from interleaving text, execution and results"]
+    constraints: ["Show execution order and stale outputs"]
+    contrasts:
+      - id: "f04"
+        distinction: "Cells and their outputs are first-class units"
+    sources:
+      - kind: "research_seed"
+        entry: "F05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: develop an analysis via code cells and retained outputs. Applicability discriminator: Users benefit from interleaving text, execution and results."
+        search_terms: ["Executable Notebook", "develop an analysis via code cells and retained outputs"]
+  - id: f06
+    name: "Design Canvas"
+    name_origin: "working_label_from_research"
+    problems: ["design structured objects on a canvas"]
+    prerequisites: ["Precision, layers or properties matter"]
+    constraints: ["Provide zoom, selection and accessible property editing"]
+    contrasts:
+      - id: "f07"
+        distinction: "Structured objects and precision dominate free arrangement"
+    sources:
+      - kind: "research_seed"
+        entry: "F06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: design structured objects on a canvas. Applicability discriminator: Precision, layers or properties matter."
+        search_terms: ["Design Canvas", "design structured objects on a canvas"]
+    compatible_with: ["l15","p16"]
+  - id: f07
+    name: "Infinite Whiteboard"
+    name_origin: "working_label_from_research"
+    problems: ["arrange ideas freely on an unbounded surface"]
+    prerequisites: ["Spatial placement and collaboration are useful"]
+    constraints: ["Provide orientation, keyboard routes and alternative access"]
+    contrasts:
+      - id: "f06"
+        distinction: "Loose spatial grouping dominates precision and layering"
+    sources:
+      - kind: "research_seed"
+        entry: "F07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: arrange ideas freely on an unbounded surface. Applicability discriminator: Spatial placement and collaboration are useful."
+        search_terms: ["Infinite Whiteboard", "arrange ideas freely on an unbounded surface"]
+  - id: f08
+    name: "Diagram Editor"
+    name_origin: "working_label_from_research"
+    problems: ["create or edit nodes and links that express meaning"]
+    prerequisites: ["Relationships are explicit and editable"]
+    constraints: ["Offer structured alternatives for navigation and editing"]
+    contrasts:
+      - id: "f09"
+        distinction: "Relationships communicate a model rather than execute it"
+    sources:
+      - kind: "research_seed"
+        entry: "F08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: create or edit nodes and links that express meaning. Applicability discriminator: Relationships are explicit and editable."
+        search_terms: ["Diagram Editor", "create or edit nodes and links that express meaning"]
+    compatible_with: ["f09","l15"]
+  - id: f09
+    name: "Node-based Workflow Builder"
+    name_origin: "working_label_from_research"
+    problems: ["author an executable process graph"]
+    prerequisites: ["Nodes and connections map to runtime behavior"]
+    constraints: ["Validate port compatibility and expose execution failures"]
+    contrasts:
+      - id: "f08"
+        distinction: "Graph edges control execution"
+    sources:
+      - kind: "research_seed"
+        entry: "F09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: author an executable process graph. Applicability discriminator: Nodes and connections map to runtime behavior."
+        search_terms: ["Node-based Workflow Builder", "author an executable process graph"]
+    compatible_with: ["f08"]
+  - id: f10
+    name: "Visual Page Builder"
+    name_origin: "working_label_from_research"
+    problems: ["assemble page sections and preview the output"]
+    prerequisites: ["Blocks have page constraints and visual preview"]
+    constraints: ["Distinguish editor state from target viewport preview"]
+    contrasts:
+      - id: "f02"
+        distinction: "Page layout and output surfaces are first-class"
+    sources:
+      - kind: "research_seed"
+        entry: "F10"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: assemble page sections and preview the output. Applicability discriminator: Blocks have page constraints and visual preview."
+        search_terms: ["Visual Page Builder", "assemble page sections and preview the output"]
+    compatible_with: ["f02"]
+  - id: f11
+    name: "Form Builder"
+    name_origin: "working_label_from_research"
+    problems: ["author fields, requirements and branching"]
+    prerequisites: ["Field definitions and response rules are explicit"]
+    constraints: ["Validate rule conflicts and preview as a respondent"]
+    contrasts:
+      - id: "h01"
+        distinction: "The user authors the form rather than submits it"
+    sources:
+      - kind: "research_seed"
+        entry: "F11"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: author fields, requirements and branching. Applicability discriminator: Field definitions and response rules are explicit."
+        search_terms: ["Form Builder", "author fields, requirements and branching"]
+    compatible_with: ["p02"]
+  - id: f12
+    name: "Query Builder"
+    name_origin: "working_label_from_research"
+    problems: ["build structured conditions to retrieve results"]
+    prerequisites: ["Data fields and valid operators are discoverable"]
+    constraints: ["Make operator scope and nested logic clear"]
+    contrasts:
+      - id: "a04"
+        distinction: "The user authors a query, including relationships or logic"
+    sources:
+      - kind: "research_seed"
+        entry: "F12"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: build structured conditions to retrieve results. Applicability discriminator: Data fields and valid operators are discoverable."
+        search_terms: ["Query Builder", "build structured conditions to retrieve results"]
+  - id: f13
+    name: "Data Modeler"
+    name_origin: "working_label_from_research"
+    problems: ["design entity schemas and relationships"]
+    prerequisites: ["Types, entities and cardinalities are meaningful"]
+    constraints: ["Show validation and downstream schema effects"]
+    contrasts:
+      - id: "f08"
+        distinction: "Schema constraints and types define the graph"
+    sources:
+      - kind: "research_seed"
+        entry: "F13"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: design entity schemas and relationships. Applicability discriminator: Types, entities and cardinalities are meaningful."
+        search_terms: ["Data Modeler", "design entity schemas and relationships"]
+  - id: f14
+    name: "Dashboard Builder"
+    name_origin: "working_label_from_research"
+    problems: ["compose and configure dashboards"]
+    prerequisites: ["Data sources and visualization properties are available"]
+    constraints: ["Surface unavailable data and preview permissions"]
+    contrasts:
+      - id: "c01"
+        distinction: "The user authors the dashboard rather than monitors it"
+    sources:
+      - kind: "research_seed"
+        entry: "F14"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: compose and configure dashboards. Applicability discriminator: Data sources and visualization properties are available."
+        search_terms: ["Dashboard Builder", "compose and configure dashboards"]
+    compatible_with: ["l14"]
+  - id: f15
+    name: "Media Timeline Editor"
+    name_origin: "working_label_from_research"
+    problems: ["arrange and trim time-based media"]
+    prerequisites: ["Tracks, clips and playback position are editable"]
+    constraints: ["Provide precise edits and accessible alternatives"]
+    contrasts:
+      - id: "e07"
+        distinction: "Editing time ranges dominates playback"
+    sources:
+      - kind: "research_seed"
+        entry: "F15"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: arrange and trim time-based media. Applicability discriminator: Tracks, clips and playback position are editable."
+        search_terms: ["Media Timeline Editor", "arrange and trim time-based media"]
+  - id: g01
+    name: "Direct Message Thread"
+    name_origin: "established_term_from_research"
+    problems: ["exchange direct messages with one conversation"]
+    prerequisites: ["Participants and message order are meaningful"]
+    constraints: ["Distinguish sending, sent and failed messages"]
+    contrasts:
+      - id: "g02"
+        distinction: "A direct conversation dominates channel navigation"
+    sources:
+      - kind: "research_seed"
+        entry: "G01"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: exchange direct messages with one conversation. Applicability discriminator: Participants and message order are meaningful."
+        search_terms: ["Direct Message Thread", "exchange direct messages with one conversation"]
+    compatible_with: ["g02","l08"]
+  - id: g02
+    name: "Channel Messenger"
+    name_origin: "working_label_from_research"
+    problems: ["switch among ongoing shared conversation channels"]
+    prerequisites: ["Named channels organize messages and participants"]
+    constraints: ["Keep unread and focus state independent"]
+    contrasts:
+      - id: "g01"
+        distinction: "Multi-channel navigation and membership are core"
+    sources:
+      - kind: "research_seed"
+        entry: "G02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: switch among ongoing shared conversation channels. Applicability discriminator: Named channels organize messages and participants."
+        search_terms: ["Channel Messenger", "switch among ongoing shared conversation channels"]
+    compatible_with: ["g01"]
+  - id: g03
+    name: "Shared Inbox"
+    name_origin: "working_label_from_research"
+    problems: ["assign and resolve conversations in a shared queue"]
+    prerequisites: ["Ownership and disposition guide work"]
+    constraints: ["Prevent ambiguous assignment during concurrent handling"]
+    contrasts:
+      - id: "g01"
+        distinction: "Queue responsibility dominates personal conversation"
+    sources:
+      - kind: "research_seed"
+        entry: "G03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: assign and resolve conversations in a shared queue. Applicability discriminator: Ownership and disposition guide work."
+        search_terms: ["Shared Inbox", "assign and resolve conversations in a shared queue"]
+    compatible_with: ["b09","l08"]
+  - id: g04
+    name: "Social Feed"
+    name_origin: "working_label_from_research"
+    problems: ["browse and interact with posts across contributors"]
+    prerequisites: ["A stream can rank or order self-contained posts"]
+    constraints: ["Preserve read position and offer loading control"]
+    contrasts:
+      - id: "a12"
+        distinction: "Posting and social responses are core"
+    sources:
+      - kind: "research_seed"
+        entry: "G04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: browse and interact with posts across contributors. Applicability discriminator: A stream can rank or order self-contained posts."
+        search_terms: ["Social Feed", "browse and interact with posts across contributors"]
+  - id: g05
+    name: "Comment Review Workspace"
+    name_origin: "working_label_from_research"
+    problems: ["review an artifact through anchored threads"]
+    prerequisites: ["Comments refer to stable locations or versions"]
+    constraints: ["Show resolved status and displaced anchors"]
+    contrasts:
+      - id: "e03"
+        distinction: "Resolution and collaborative review dominate annotation reading"
+    sources:
+      - kind: "research_seed"
+        entry: "G05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: review an artifact through anchored threads. Applicability discriminator: Comments refer to stable locations or versions."
+        search_terms: ["Comment Review Workspace", "review an artifact through anchored threads"]
+    compatible_with: ["e01","g06"]
+  - id: g06
+    name: "Collaborative Workspace"
+    name_origin: "working_label_from_research"
+    problems: ["work together on a shared mutable artifact"]
+    prerequisites: ["Collaboration and ownership state can be observed"]
+    constraints: ["Define conflicts, permissions and stale presence"]
+    contrasts:
+      - id: "g05"
+        distinction: "Concurrent editing is core rather than commenting alone"
+    sources:
+      - kind: "research_seed"
+        entry: "G06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: work together on a shared mutable artifact. Applicability discriminator: Collaboration and ownership state can be observed."
+        search_terms: ["Collaborative Workspace", "work together on a shared mutable artifact"]
+    compatible_with: ["g05"]
+  - id: g07
+    name: "Conversation + Artifact"
+    name_origin: "working_label_from_research"
+    problems: ["converse while inspecting or editing a related artifact"]
+    prerequisites: ["Conversation and artifact share a meaningful relationship"]
+    constraints: ["Preserve context and identify which version messages refer to"]
+    contrasts:
+      - id: "g01"
+        distinction: "The artifact stays visible as a first-class working area"
+    sources:
+      - kind: "research_seed"
+        entry: "G07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: converse while inspecting or editing a related artifact. Applicability discriminator: Conversation and artifact share a meaningful relationship."
+        search_terms: ["Conversation + Artifact", "converse while inspecting or editing a related artifact"]
+    compatible_with: ["l07"]
+  - id: g08
+    name: "Notification Center"
+    name_origin: "working_label_from_research"
+    problems: ["scan and resolve notifications from several sources"]
+    prerequisites: ["Notifications can be grouped or marked read"]
+    constraints: ["Keep urgency, age and read state clear"]
+    contrasts:
+      - id: "g03"
+        distinction: "Personal awareness dominates assignment and handling"
+    sources:
+      - kind: "research_seed"
+        entry: "G08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: scan and resolve notifications from several sources. Applicability discriminator: Notifications can be grouped or marked read."
+        search_terms: ["Notification Center", "scan and resolve notifications from several sources"]
+  - id: h01
+    name: "Single-page Form"
+    name_origin: "working_label_from_research"
+    problems: ["complete a compact set of related inputs together"]
+    prerequisites: ["Users benefit from seeing the full set at once"]
+    constraints: ["Preserve entered data through validation errors", "Combine Single-page Form with Wizard only when the compact form is scoped to one step and its fields fit together"]
+    contrasts:
+      - id: "h02"
+        distinction: "Fields fit one coherent task without section navigation"
+    sources:
+      - kind: "research_seed"
+        entry: "H01"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: complete a compact set of related inputs together. Applicability discriminator: Users benefit from seeing the full set at once."
+        search_terms: ["Single-page Form", "complete a compact set of related inputs together"]
+    compatible_with: ["h02","l01","l02","p01","p09"]
+  - id: h02
+    name: "Multi-section Form"
+    name_origin: "working_label_from_research"
+    problems: ["complete several sets of inputs in one session"]
+    prerequisites: ["Field groups are independently understandable"]
+    constraints: ["Show errors and allow users to revisit relevant sections"]
+    contrasts:
+      - id: "p01"
+        distinction: "Sections organize fields; a mandatory step sequence is optional"
+    sources:
+      - kind: "research_seed"
+        entry: "H02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: complete several sets of inputs in one session. Applicability discriminator: Field groups are independently understandable."
+        search_terms: ["Multi-section Form", "complete several sets of inputs in one session"]
+    compatible_with: ["h01","p02"]
+  - id: h03
+    name: "Settings Editor"
+    name_origin: "working_label_from_research"
+    problems: ["inspect and change persistent preferences"]
+    prerequisites: ["Values have scope, defaults and visible save semantics"]
+    constraints: ["Expose inheritance, validation and restart requirements"]
+    contrasts:
+      - id: "h01"
+        distinction: "Current values and their ongoing effects matter"
+    sources:
+      - kind: "research_seed"
+        entry: "H03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect and change persistent preferences. Applicability discriminator: Values have scope, defaults and visible save semantics."
+        search_terms: ["Settings Editor", "inspect and change persistent preferences"]
+  - id: h04
+    name: "Permissions Matrix"
+    name_origin: "working_label_from_research"
+    problems: ["audit or edit permissions across subjects and capabilities"]
+    prerequisites: ["Two axes of permissions can be meaningfully compared"]
+    constraints: ["Expose inherited grants and protect high-impact changes"]
+    contrasts:
+      - id: "a14"
+        distinction: "Cells represent access decisions and may carry indirect effects"
+    sources:
+      - kind: "research_seed"
+        entry: "H04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: audit or edit permissions across subjects and capabilities. Applicability discriminator: Two axes of permissions can be meaningfully compared."
+        search_terms: ["Permissions Matrix", "audit or edit permissions across subjects and capabilities"]
+  - id: h05
+    name: "Item Configurator"
+    name_origin: "working_label_from_research"
+    problems: ["configure a product from dependent options"]
+    prerequisites: ["Selections affect validity, availability or output"]
+    constraints: ["Explain dependencies and update affected totals"]
+    contrasts:
+      - id: "h01"
+        distinction: "An evolving valid configuration is the result"
+    sources:
+      - kind: "research_seed"
+        entry: "H05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: configure a product from dependent options. Applicability discriminator: Selections affect validity, availability or output."
+        search_terms: ["Item Configurator", "configure a product from dependent options"]
+  - id: h06
+    name: "Approval Workbench"
+    name_origin: "working_label_from_research"
+    problems: ["inspect evidence and decide on an approval"]
+    prerequisites: ["Decision roles and evidence are available"]
+    constraints: ["Make irreversible effects and audit status clear"]
+    contrasts:
+      - id: "p10"
+        distinction: "A dedicated decision surface supports one stage of the wider process"
+    sources:
+      - kind: "research_seed"
+        entry: "H06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: inspect evidence and decide on an approval. Applicability discriminator: Decision roles and evidence are available."
+        search_terms: ["Approval Workbench", "inspect evidence and decide on an approval"]
+    compatible_with: ["p10"]
+  - id: h07
+    name: "Status Tracker"
+    name_origin: "working_label_from_research"
+    problems: ["understand progress and next action for a case"]
+    prerequisites: ["Case stages and current state are observable"]
+    constraints: ["Show blocked and exceptional paths alongside completion"]
+    contrasts:
+      - id: "d08"
+        distinction: "Progress toward an outcome is primary rather than chronology alone"
+    sources:
+      - kind: "research_seed"
+        entry: "H07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: understand progress and next action for a case. Applicability discriminator: Case stages and current state are observable."
+        search_terms: ["Status Tracker", "understand progress and next action for a case"]
+  - id: h08
+    name: "Calculator / Simulation"
+    name_origin: "working_label_from_research"
+    problems: ["vary inputs and understand derived outcomes"]
+    prerequisites: ["A computable model and meaningful assumptions exist"]
+    constraints: ["Label units and uncertainty; expose invalid input"]
+    contrasts:
+      - id: "c04"
+        distinction: "Recomputation from inputs dominates reporting existing data"
+    sources:
+      - kind: "research_seed"
+        entry: "H08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: vary inputs and understand derived outcomes. Applicability discriminator: A computable model and meaningful assumptions exist."
+        search_terms: ["Calculator / Simulation", "vary inputs and understand derived outcomes"]
+    aliases: ["Calculator","Simulation"]
+
+layout_navigation_patterns:
+  - id: l01
+    name: "Single Column"
+    name_origin: "working_label_from_research"
+    problems: ["keep one reading or task sequence in order"]
+    prerequisites: ["Areas can be consumed sequentially"]
+    constraints: ["Preserve priority as side context moves below"]
+    contrasts:
+      - id: "l07"
+        distinction: "One flow rather than parallel peer areas"
+    sources:
+      - kind: "research_seed"
+        entry: "Single Column"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: keep one reading or task sequence in order. Applicability discriminator: Areas can be consumed sequentially."
+        search_terms: ["Single Column", "keep one reading or task sequence in order"]
+    compatible_with: ["h01"]
+  - id: l02
+    name: "Centered Content"
+    name_origin: "working_label_from_research"
+    problems: ["keep reading and form input within a comfortable measure"]
+    prerequisites: ["Content has a meaningful maximum width"]
+    constraints: ["Allow tables and other broad content appropriate space"]
+    contrasts:
+      - id: "l01"
+        distinction: "Constrains line length; a single column need not be centered"
+    sources:
+      - kind: "research_seed"
+        entry: "Centered Content"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: keep reading and form input within a comfortable measure. Applicability discriminator: Content has a meaningful maximum width."
+        search_terms: ["Centered Content", "keep reading and form input within a comfortable measure"]
+    compatible_with: ["h01"]
+  - id: l03
+    name: "Full-bleed"
+    name_origin: "working_label_from_research"
+    problems: ["maximize space for a large working surface"]
+    prerequisites: ["Work benefits from the whole available region"]
+    constraints: ["Keep navigation and escape affordances accessible"]
+    contrasts:
+      - id: "l02"
+        distinction: "Space is reserved for the working surface instead of a bounded measure"
+    sources:
+      - kind: "research_seed"
+        entry: "Full-bleed"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: maximize space for a large working surface. Applicability discriminator: Work benefits from the whole available region."
+        search_terms: ["Full-bleed", "maximize space for a large working surface"]
+  - id: l04
+    name: "Top Navigation Shell"
+    name_origin: "working_label_from_research"
+    problems: ["navigate a small set of persistent sections"]
+    prerequisites: ["Primary destinations fit compactly"]
+    constraints: ["Provide narrow-width overflow and current-section indication"]
+    contrasts:
+      - id: "l05"
+        distinction: "Sections are placed above content"
+    sources:
+      - kind: "research_seed"
+        entry: "Top Navigation Shell"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: navigate a small set of persistent sections. Applicability discriminator: Primary destinations fit compactly."
+        search_terms: ["Top Navigation Shell", "navigate a small set of persistent sections"]
+  - id: l05
+    name: "Sidebar Shell"
+    name_origin: "working_label_from_research"
+    problems: ["navigate many persistent or grouped destinations"]
+    prerequisites: ["Section names or hierarchy need vertical space"]
+    constraints: ["Adapt wide side navigation for narrow widths"]
+    contrasts:
+      - id: "l04"
+        distinction: "Navigation remains alongside content on wide surfaces"
+    sources:
+      - kind: "research_seed"
+        entry: "Sidebar Shell"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: navigate many persistent or grouped destinations. Applicability discriminator: Section names or hierarchy need vertical space."
+        search_terms: ["Sidebar Shell", "navigate many persistent or grouped destinations"]
+    compatible_with: ["e02"]
+  - id: l06
+    name: "Dual-sidebar"
+    name_origin: "working_label_from_research"
+    problems: ["keep two auxiliary sides visible around a primary region"]
+    prerequisites: ["Both sides support different frequent tasks"]
+    constraints: ["Define collapse order and focus on narrow layouts"]
+    contrasts:
+      - id: "l10"
+        distinction: "Side regions have distinct roles around a central workspace"
+    sources:
+      - kind: "research_seed"
+        entry: "Dual-sidebar"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: keep two auxiliary sides visible around a primary region. Applicability discriminator: Both sides support different frequent tasks."
+        search_terms: ["Dual-sidebar", "keep two auxiliary sides visible around a primary region"]
+  - id: l07
+    name: "Split View"
+    name_origin: "established_term_from_research"
+    problems: ["view two peer working areas side by side"]
+    prerequisites: ["Simultaneous visibility helps the task"]
+    constraints: ["Define width priorities and a stacked alternative"]
+    contrasts:
+      - id: "l08"
+        distinction: "Geometry alone does not imply selection-driven details"
+    sources:
+      - kind: "research_seed"
+        entry: "Split View"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: view two peer working areas side by side. Applicability discriminator: Simultaneous visibility helps the task."
+        search_terms: ["Split View", "view two peer working areas side by side"]
+    compatible_with: ["a15","d05","e04","f03","g07","l12","l13"]
+  - id: l08
+    name: "Master–Detail"
+    name_origin: "established_term_from_research"
+    problems: ["inspect selected items while retaining collection context"]
+    prerequisites: ["Selection of one entity determines the details displayed"]
+    constraints: ["Preserve identity, selection and return focus across widths"]
+    contrasts:
+      - id: "l07"
+        distinction: "The relationship is selection-driven; side-by-side is optional"
+    sources:
+      - kind: "research_seed"
+        entry: "Master–Detail"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: inspect selected items while retaining collection context. Applicability discriminator: Selection of one entity determines the details displayed."
+        search_terms: ["responsive list-detail layout selection-driven details", "list details pane selected item narrow and wide layouts"]
+      - kind: "implementation_reference"
+        title: "Infor Design System, List and Details"
+        description: "Illustrates selection-driven details and adaptation from side-by-side panes to separate views at narrow widths. Verify keyboard return focus separately in the target UI."
+        search_terms: ["Infor Design System list and details responsive selected item"]
+    compatible_with: ["a06", "b01", "b02", "b05", "b06", "c08", "g01", "g03"]
+  - id: l09
+    name: "Supporting Pane"
+    name_origin: "working_label_from_research"
+    problems: ["access contextual tools or information alongside primary work"]
+    prerequisites: ["Auxiliary work depends on the primary surface"]
+    constraints: ["Make removal or collapse safe for the main task"]
+    contrasts:
+      - id: "l08"
+        distinction: "Auxiliary context can exist without a collection selection"
+    sources:
+      - kind: "research_seed"
+        entry: "Supporting Pane"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: access contextual tools or information alongside primary work. Applicability discriminator: Auxiliary work depends on the primary surface."
+        search_terms: ["Supporting Pane", "access contextual tools or information alongside primary work"]
+    compatible_with: ["b06","e01","l18"]
+  - id: l10
+    name: "Three-pane Drilldown"
+    name_origin: "working_label_from_research"
+    problems: ["retain three successive levels of navigation and detail"]
+    prerequisites: ["Two linked selections determine downstream context"]
+    constraints: ["Preserve history when collapsing levels"]
+    contrasts:
+      - id: "l08"
+        distinction: "Two successive choices determine three levels"
+    sources:
+      - kind: "research_seed"
+        entry: "Three-pane Drilldown"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: retain three successive levels of navigation and detail. Applicability discriminator: Two linked selections determine downstream context."
+        search_terms: ["Three-pane Drilldown", "retain three successive levels of navigation and detail"]
+  - id: l11
+    name: "Tabbed Workspace"
+    name_origin: "working_label_from_research"
+    problems: ["switch among peer documents or views in a workspace"]
+    prerequisites: ["Peer views have stable identities and useful retained context"]
+    constraints: ["Keep selected tab and focus understandable across widths"]
+    contrasts:
+      - id: "l04"
+        distinction: "Switching related workspace views dominates section navigation"
+    sources:
+      - kind: "research_seed"
+        entry: "Tabbed Workspace"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: switch among peer documents or views in a workspace. Applicability discriminator: Peer views have stable identities and useful retained context."
+        search_terms: ["Tabbed Workspace", "switch among peer documents or views in a workspace"]
+      - kind: "implementation_reference"
+        title: "W3C WAI ARIA Authoring Practices Guide, Tabs Pattern"
+        description: "Tab selection and associated tab panels"
+        search_terms: ["W3C WAI ARIA Authoring Practices Guide, Tabs Pattern", "Tab selection and associated tab panels"]
+    compatible_with: ["c10","f04"]
+  - id: l12
+    name: "Resizable Multi-pane"
+    name_origin: "working_label_from_research"
+    problems: ["give users control of relative pane size"]
+    prerequisites: ["Multiple regions have useful minimum sizes"]
+    constraints: ["Provide keyboard resizing and minimum bounds"]
+    contrasts:
+      - id: "l07"
+        distinction: "Users can change pane sizes"
+    sources:
+      - kind: "research_seed"
+        entry: "Resizable Multi-pane"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: give users control of relative pane size. Applicability discriminator: Multiple regions have useful minimum sizes."
+        search_terms: ["Resizable Multi-pane", "give users control of relative pane size"]
+    compatible_with: ["f04","l07"]
+  - id: l13
+    name: "Dockable Workspace"
+    name_origin: "working_label_from_research"
+    problems: ["allow users to rearrange workspace panels"]
+    prerequisites: ["Panels have independent identities and usable alternate placements"]
+    constraints: ["Provide layout reset and alternatives to pointer movement"]
+    contrasts:
+      - id: "l12"
+        distinction: "Panel position changes in addition to size"
+    sources:
+      - kind: "research_seed"
+        entry: "Dockable Workspace"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: allow users to rearrange workspace panels. Applicability discriminator: Panels have independent identities and usable alternate placements."
+        search_terms: ["Dockable Workspace", "allow users to rearrange workspace panels"]
+    compatible_with: ["l07"]
+  - id: l14
+    name: "Modular / Bento Grid"
+    name_origin: "working_label_from_research"
+    problems: ["organize heterogeneous modules by shared grid and priority"]
+    prerequisites: ["Modules fit an intelligible reading order"]
+    constraints: ["Maintain ordering and hierarchy when wrapping"]
+    contrasts:
+      - id: "a08"
+        distinction: "Modules can have different roles and sizes"
+    sources:
+      - kind: "research_seed"
+        entry: "Modular / Bento Grid"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: organize heterogeneous modules by shared grid and priority. Applicability discriminator: Modules fit an intelligible reading order."
+        search_terms: ["Modular / Bento Grid", "organize heterogeneous modules by shared grid and priority"]
+    aliases: ["Bento Grid"]
+    compatible_with: ["a08","f14"]
+  - id: l15
+    name: "Canvas + Inspector"
+    name_origin: "working_label_from_research"
+    problems: ["edit object properties while keeping the canvas visible"]
+    prerequisites: ["Selected canvas objects expose editable attributes"]
+    constraints: ["Preserve selection and show mixed values in multiselect"]
+    contrasts:
+      - id: "l08"
+        distinction: "A canvas selection drives a property editor"
+    sources:
+      - kind: "research_seed"
+        entry: "Canvas + Inspector"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: edit object properties while keeping the canvas visible. Applicability discriminator: Selected canvas objects expose editable attributes."
+        search_terms: ["Canvas + Inspector", "edit object properties while keeping the canvas visible"]
+    compatible_with: ["f06","f08"]
+  - id: l16
+    name: "Hub-and-Spoke"
+    name_origin: "working_label_from_research"
+    problems: ["return to a central point between separate tasks"]
+    prerequisites: ["Each spoke can be entered and exited independently"]
+    constraints: ["Provide clear return and preserve unfinished work as needed"]
+    contrasts:
+      - id: "l05"
+        distinction: "The hub is a destination between independent tasks"
+    sources:
+      - kind: "research_seed"
+        entry: "Hub-and-Spoke"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: return to a central point between separate tasks. Applicability discriminator: Each spoke can be entered and exited independently."
+        search_terms: ["Hub-and-Spoke", "return to a central point between separate tasks"]
+    compatible_with: ["a01"]
+  - id: l17
+    name: "Hierarchical Navigation"
+    name_origin: "working_label_from_research"
+    problems: ["move among meaningful levels in a hierarchy"]
+    prerequisites: ["Current location and parent levels can be named"]
+    constraints: ["Retain ancestry on direct entry and deep links"]
+    contrasts:
+      - id: "a06"
+        distinction: "Navigation relationship may appear in breadcrumbs or menus; tree is one presentation"
+    sources:
+      - kind: "research_seed"
+        entry: "Hierarchical Navigation"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: move among meaningful levels in a hierarchy. Applicability discriminator: Current location and parent levels can be named."
+        search_terms: ["Hierarchical Navigation", "move among meaningful levels in a hierarchy"]
+    compatible_with: ["a06","e02"]
+  - id: l18
+    name: "Overlay / Drawer"
+    name_origin: "working_label_from_research"
+    problems: ["show temporary contextual work over a main view"]
+    prerequisites: ["The task can be completed in a secondary surface"]
+    constraints: ["Define focus, dismissal and unsaved state"]
+    contrasts:
+      - id: "l09"
+        distinction: "Temporarily overlays the underlying workspace"
+    sources:
+      - kind: "research_seed"
+        entry: "Overlay / Drawer"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: show temporary contextual work over a main view. Applicability discriminator: The task can be completed in a secondary surface."
+        search_terms: ["Overlay / Drawer", "show temporary contextual work over a main view"]
+    aliases: ["Drawer","Overlay"]
+    compatible_with: ["l09"]
+
+interaction_workflow_patterns:
+  - id: p01
+    name: "Wizard"
+    name_origin: "established_term_from_research"
+    problems: ["complete a predictable sequence of dependent steps"]
+    prerequisites: ["Steps are meaningful and order matters"]
+    constraints: ["Allow review and back navigation according to the task", "Combine Single-page Form with Wizard only when the compact form is scoped to one step and its fields fit together"]
+    contrasts:
+      - id: "p02"
+        distinction: "The essential sequence is fixed"
+    sources:
+      - kind: "research_seed"
+        entry: "P01"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: complete a predictable sequence of dependent steps. Applicability discriminator: Steps are meaningful and order matters."
+        search_terms: ["Wizard", "complete a predictable sequence of dependent steps"]
+    compatible_with: ["h01"]
+    exclusions: ["Prior answers determine which substantive steps apply"]
+  - id: p02
+    name: "Branching Questionnaire"
+    name_origin: "working_label_from_research"
+    problems: ["collect answers while skipping irrelevant questions"]
+    prerequisites: ["Answers determine conditions for later questions"]
+    constraints: ["Validate branching and revisit effects on changed answers"]
+    contrasts:
+      - id: "p01"
+        distinction: "The path changes with previous answers"
+    sources:
+      - kind: "research_seed"
+        entry: "P02"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: collect answers while skipping irrelevant questions. Applicability discriminator: Answers determine conditions for later questions."
+        search_terms: ["Branching Questionnaire", "collect answers while skipping irrelevant questions"]
+      - kind: "implementation_reference"
+        title: "GOV.UK Design System, Question pages"
+        description: "Describes question screen structure and returning to an earlier question. Branching behavior needs separate evidence."
+        search_terms: ["GOV.UK Design System Question pages back link"]
+      - kind: "implementation_reference"
+        title: "GOV.UK Forms, Using routes"
+        description: "Shows answer-dependent skipping during forward navigation. Verify separately how editing an earlier answer affects routing, validation, and previously entered data in a branch that becomes inactive."
+        search_terms: ["GOV.UK Forms Using routes skip questions based on answers"]
+    compatible_with: ["f11", "h02", "p09"]
+  - id: p03
+    name: "Checkout Funnel"
+    name_origin: "working_label_from_research"
+    problems: ["complete a purchase with a visible outcome"]
+    prerequisites: ["Cart, payment and order outcome are distinct"]
+    constraints: ["Make charges and uncertain payment outcomes clear"]
+    contrasts:
+      - id: "p01"
+        distinction: "Transaction and its outcome define the flow, independent of step count"
+    sources:
+      - kind: "research_seed"
+        entry: "P03"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: complete a purchase with a visible outcome. Applicability discriminator: Cart, payment and order outcome are distinct."
+        search_terms: ["Checkout Funnel", "complete a purchase with a visible outcome"]
+    compatible_with: ["p09"]
+  - id: p04
+    name: "Guided Onboarding"
+    name_origin: "working_label_from_research"
+    problems: ["complete initial setup while learning essential tasks"]
+    prerequisites: ["Initial readiness has a meaningful end condition"]
+    constraints: ["Distinguish optional guidance from required setup"]
+    contrasts:
+      - id: "p01"
+        distinction: "First-use capability and learning are the outcome"
+    sources:
+      - kind: "research_seed"
+        entry: "P04"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: complete initial setup while learning essential tasks. Applicability discriminator: Initial readiness has a meaningful end condition."
+        search_terms: ["Guided Onboarding", "complete initial setup while learning essential tasks"]
+  - id: p05
+    name: "Eligibility Checker"
+    name_origin: "working_label_from_research"
+    problems: ["find whether stated conditions are met"]
+    prerequisites: ["Eligibility rules can return an explainable result"]
+    constraints: ["Explain unknowns and the next available action"]
+    contrasts:
+      - id: "p02"
+        distinction: "Eligibility is the outcome rather than answer collection"
+    sources:
+      - kind: "research_seed"
+        entry: "P05"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find whether stated conditions are met. Applicability discriminator: Eligibility rules can return an explainable result."
+        search_terms: ["Eligibility Checker", "find whether stated conditions are met"]
+  - id: p06
+    name: "Booking Flow"
+    name_origin: "working_label_from_research"
+    problems: ["reserve a resource for a selected time"]
+    prerequisites: ["Availability, timezone and final confirmation can be represented"]
+    constraints: ["Handle a slot becoming unavailable before confirmation"]
+    contrasts:
+      - id: "p03"
+        distinction: "Reservation conflicts and time are central"
+    sources:
+      - kind: "research_seed"
+        entry: "P06"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: reserve a resource for a selected time. Applicability discriminator: Availability, timezone and final confirmation can be represented."
+        search_terms: ["Booking Flow", "reserve a resource for a selected time"]
+    compatible_with: ["d04"]
+  - id: p07
+    name: "Import & Mapping"
+    name_origin: "working_label_from_research"
+    problems: ["move external data into a known structure"]
+    prerequisites: ["Source and destination fields can be mapped"]
+    constraints: ["Distinguish invalid rows, previews and partial success"]
+    contrasts:
+      - id: "p09"
+        distinction: "Field mapping and validation are first-class steps"
+    sources:
+      - kind: "research_seed"
+        entry: "P07"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: move external data into a known structure. Applicability discriminator: Source and destination fields can be mapped."
+        search_terms: ["Import & Mapping", "move external data into a known structure"]
+    compatible_with: ["p09"]
+  - id: p08
+    name: "Preview & Publish"
+    name_origin: "working_label_from_research"
+    problems: ["verify a representation before making it public"]
+    prerequisites: ["A meaningfully representative preview is available"]
+    constraints: ["Make preview and published version identity clear"]
+    contrasts:
+      - id: "p09"
+        distinction: "Preview shows the output surface or audience experience"
+    sources:
+      - kind: "research_seed"
+        entry: "P08"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: verify a representation before making it public. Applicability discriminator: A meaningfully representative preview is available."
+        search_terms: ["Preview & Publish", "verify a representation before making it public"]
+    compatible_with: ["p09"]
+  - id: p09
+    name: "Review & Confirm"
+    name_origin: "working_label_from_research"
+    problems: ["check selections or entered values before committing"]
+    prerequisites: ["A meaningful summary and reversible edit path exist"]
+    constraints: ["Preserve context on edit and show the commitment outcome"]
+    contrasts:
+      - id: "p10"
+        distinction: "The same actor checks and confirms their action"
+    sources:
+      - kind: "research_seed"
+        entry: "P09"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: check selections or entered values before committing. Applicability discriminator: A meaningful summary and reversible edit path exist."
+        search_terms: ["Review & Confirm", "check selections or entered values before committing"]
+      - kind: "implementation_reference"
+        title: "GOV.UK Design System, Check answers"
+        description: "Review and change answers before submitting"
+        search_terms: ["GOV.UK Design System, Check answers", "Review and change answers before submitting"]
+    compatible_with: ["h01", "p02", "p03", "p07", "p08"]
+  - id: p10
+    name: "Approval Workflow"
+    name_origin: "working_label_from_research"
+    problems: ["submit evidence and obtain an authorized decision"]
+    prerequisites: ["Submitter, reviewer and allowed outcomes are defined"]
+    constraints: ["Expose audit history and resubmission rules"]
+    contrasts:
+      - id: "p09"
+        distinction: "Decision authority and potentially separate actors matter"
+    sources:
+      - kind: "research_seed"
+        entry: "P10"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: submit evidence and obtain an authorized decision. Applicability discriminator: Submitter, reviewer and allowed outcomes are defined."
+        search_terms: ["Approval Workflow", "submit evidence and obtain an authorized decision"]
+    compatible_with: ["h06"]
+  - id: p11
+    name: "Drill-down"
+    name_origin: "established_term_from_research"
+    problems: ["move from aggregate to a finer level of detail"]
+    prerequisites: ["Detail scope can be derived from the selected aggregate"]
+    constraints: ["Make path and return to parent clear"]
+    contrasts:
+      - id: "p12"
+        distinction: "Moves into finer scope rather than filtering peers"
+    sources:
+      - kind: "research_seed"
+        entry: "P11"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: move from aggregate to a finer level of detail. Applicability discriminator: Detail scope can be derived from the selected aggregate."
+        search_terms: ["Drill-down", "move from aggregate to a finer level of detail"]
+    compatible_with: ["c01"]
+  - id: p12
+    name: "Cross-filtering"
+    name_origin: "working_label_from_research"
+    problems: ["restrict peer views by selecting data in another view"]
+    prerequisites: ["Views share a compatible filter dimension"]
+    constraints: ["Display active filters and provide clear reset"]
+    contrasts:
+      - id: "p11"
+        distinction: "Updates peers without descending a hierarchy"
+    sources:
+      - kind: "research_seed"
+        entry: "P12"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: restrict peer views by selecting data in another view. Applicability discriminator: Views share a compatible filter dimension."
+        search_terms: ["Cross-filtering", "restrict peer views by selecting data in another view"]
+    compatible_with: ["a15","c03"]
+  - id: p13
+    name: "Inline Editing"
+    name_origin: "established_term_from_research"
+    problems: ["change a value while staying in its working context"]
+    prerequisites: ["Small edits can be validated in place"]
+    constraints: ["Provide explicit save or cancel semantics and visible errors"]
+    contrasts:
+      - id: "p16"
+        distinction: "Edits use a contextual input rather than manipulating the object representation"
+    sources:
+      - kind: "research_seed"
+        entry: "P13"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: change a value while staying in its working context. Applicability discriminator: Small edits can be validated in place."
+        search_terms: ["Inline Editing", "change a value while staying in its working context"]
+    compatible_with: ["b02","b03"]
+  - id: p14
+    name: "Bulk Actions"
+    name_origin: "working_label_from_research"
+    problems: ["apply one operation to multiple selected objects"]
+    prerequisites: ["Selection scope and eligibility are known"]
+    constraints: ["Disclose select-all scope and partial failures"]
+    contrasts:
+      - id: "b14"
+        distinction: "A workflow action can be used in multiple screen archetypes"
+    sources:
+      - kind: "research_seed"
+        entry: "P14"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: apply one operation to multiple selected objects. Applicability discriminator: Selection scope and eligibility are known."
+        search_terms: ["Bulk Actions", "apply one operation to multiple selected objects"]
+    compatible_with: ["b08"]
+  - id: p15
+    name: "Drag & Drop"
+    name_origin: "established_term_from_research"
+    problems: ["move an item to a meaningful target using direct movement"]
+    prerequisites: ["Items and legal drop targets can be identified"]
+    constraints: ["Provide keyboard-equivalent actions and feedback on illegal moves"]
+    contrasts:
+      - id: "p16"
+        distinction: "Moving an item among targets is the specific gesture"
+    sources:
+      - kind: "research_seed"
+        entry: "P15"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: move an item to a meaningful target using direct movement. Applicability discriminator: Items and legal drop targets can be identified."
+        search_terms: ["Drag & Drop", "move an item to a meaningful target using direct movement"]
+    compatible_with: ["b10","b11","f02"]
+  - id: p16
+    name: "Direct Manipulation"
+    name_origin: "working_label_from_research"
+    problems: ["change an object by acting on its representation"]
+    prerequisites: ["Effects can be observed during manipulation"]
+    constraints: ["Provide reversible or precise alternative controls where needed"]
+    contrasts:
+      - id: "p15"
+        distinction: "Includes resizing or transformation beyond movement between targets"
+    sources:
+      - kind: "research_seed"
+        entry: "P16"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: change an object by acting on its representation. Applicability discriminator: Effects can be observed during manipulation."
+        search_terms: ["Direct Manipulation", "change an object by acting on its representation"]
+    compatible_with: ["f06"]
+  - id: p17
+    name: "Command Palette"
+    name_origin: "working_label_from_research"
+    problems: ["find and execute a named command quickly"]
+    prerequisites: ["Commands have searchable names and availability"]
+    constraints: ["Show shortcuts and unavailable actions where useful"]
+    contrasts:
+      - id: "a02"
+        distinction: "Search results are executable commands rather than content"
+    sources:
+      - kind: "research_seed"
+        entry: "P17"
+        description: "Working label recorded in the initial web UI archetype research. Candidate context: find and execute a named command quickly. Applicability discriminator: Commands have searchable names and availability."
+        search_terms: ["Command Palette", "find and execute a named command quickly"]
+    compatible_with: ["f04"]
+  - id: p18
+    name: "Progressive Disclosure"
+    name_origin: "established_term_from_research"
+    problems: ["reveal advanced options when relevant"]
+    prerequisites: ["Hidden information is unnecessary for the immediate decision"]
+    constraints: ["Keep the reveal control discoverable and context intact"]
+    contrasts:
+      - id: "p11"
+        distinction: "Reveals optional complexity within a task rather than descending data levels"
+    sources:
+      - kind: "research_seed"
+        entry: "P18"
+        description: "Established term recorded in the initial web UI archetype research. Candidate context: reveal advanced options when relevant. Applicability discriminator: Hidden information is unnecessary for the immediate decision."
+        search_terms: ["Progressive Disclosure", "reveal advanced options when relevant"]
+    compatible_with: ["a03"]
