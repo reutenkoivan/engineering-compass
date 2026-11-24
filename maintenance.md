@@ -60,17 +60,14 @@ releases with no migration files. Name its predecessor and the newly
 introduced migration files in order. Preserve published rows and bindings.
 
 Verify installation and marketplace upgrade from a Git-backed catalog in an
-isolated Codex configuration. Verify that an adopted repository still resolves
-its approved rules after the plugin cache changes.
+isolated Codex configuration. Verify that the updated repository uses the
+installed rules and that a second repository with an older configured version
+requests Update before applying them.
 
-Merge the workflows on their own before merging the package release that
-changes the installation command. Run the manual Deliver plugin workflow
-on `main` with tag `v0.1.0` and expected release head `missing`. Verify the
-marketplace and a Git clone can both read the bootstrapped `release` branch.
-Then merge the package release with the migration record and the new
-installation command. The bootstrap package has the original Setup and
-Update behavior. Verify the introducing package has reached `release` before
-assessing version-only migrations.
+The original channel bootstrap used the manual Deliver plugin workflow on
+`main` with tag `v0.1.0` and expected release head `missing`. Verify that a
+release introducing an adoption change has reached `release` before assessing
+the migration against a live installation.
 
 The **Validate plugin** check runs on every PR to `main`. Require that check
 and up-to-date branches before merging. A push to `main` creates a version

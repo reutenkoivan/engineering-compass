@@ -1,72 +1,74 @@
-# Adoption and revision resolution
+# Repository adoption
 
-The root `AGENTS.md` owns adoption. Its Engineering Compass section instructs
-ordinary repository work to use the exact installed skill name or links to the intended
-repository-relative `SKILL.md`. A versioned entry records these fields.
+The working copy of the root `AGENTS.md` owns the integration. Its Engineering
+Compass section names the global skill and records
+`Engineering Compass release: <version>`. This is the version for which the
+repository has been configured.
 
-```text
-Engineering Compass release: <published version>
-Engineering Compass revision: <full upstream Git commit SHA>
-Engineering Compass rules tree: <full repository Git tree OID>
+## Identify the active installation
+
+Resolve the named global skill in Codex. Setup and Update use the global
+package that supplies the invoked skill. A Codex plugin exposes
+`$engineering-compass:engineering-compass`. A user-installed Git bundle
+exposes `$engineering-compass`. Read the version from `plugin.json` in the
+package root above `skills/`. For a marketplace installation, confirm the
+installed, enabled package in `codex plugin list --json` and read the
+installed package's files. Keep the marker and the rules in the same package.
+If the selector or version is missing, ambiguous, or inconsistent, report
+what must be resolved in the installation before dependent work.
+
+## Compare versions before applying rules
+
+Use the working root entry and compare its version with the installed version
+numerically as `major.minor.patch`. An invalid or conflicting version entry
+requires repair before choosing a branch.
+
+| Repository state | Action |
+| --- | --- |
+| Versions match | Use the installed `principles.md` and `context-map.md`. Resolve their links in the same package. An explicit Setup verifies or repairs the integration. |
+| Repository version is older | Show both versions, stop dependent work, and ask the user to invoke Update in this repository. |
+| Repository version is newer | Show both versions and run the [Setup procedure](../engineering-compass-setup/setup.md) from the installed package. Resume dependent work after Setup verifies the integration. |
+| Existing adoption has no version | Ask the user to invoke Update to audit the previous integration and establish its first recorded version. |
+
+Apply this comparison to ordinary work and to Setup. An explicit Update may
+run with mismatched or missing repository version. After it synchronizes the
+installation, use its migration procedure to reconcile the repository.
+Repositories without an adoption follow their local instructions. An explicit
+request to adopt Engineering Compass starts Setup.
+
+## Root entry
+
+Use the selector and skill names for the actual installation. The following
+form uses the Codex plugin. For a standalone bundle, use
+`$engineering-compass`, `$engineering-compass-setup`, and
+`$engineering-compass-update`.
+
+```markdown
+## Engineering Compass
+
+Engineering Compass release: <version>
+
+This entry owns version selection and format for Compass, Setup, and Update,
+including explicit calls to the installed skills.
+Before planning or doing repository work, resolve
+$engineering-compass:engineering-compass and read the version in its package's
+plugin.json. If the versions match, apply principles.md and context-map.md
+from that installed skill. If this repository is older, show both versions,
+stop, and ask me to run $engineering-compass:engineering-compass-update here.
+If this repository is newer, show both versions and run
+$engineering-compass:engineering-compass-setup here. Run only the local-policy
+audit and integration checks from the installed Setup's setup.md against the
+installed rules, then write the verified version.
+
+An explicit Update may run before the versions match. If the installed
+Update still uses Git revision fields, refresh the release marketplace with
+`codex plugin marketplace upgrade engineering-compass` or the clean Git
+checkout on release with `git pull --ff-only`. Read Update from the refreshed
+package. If it still expects revision fields, compare versions again. Use
+its migration records for forward changes and the Setup checks above for
+integration. Use this entry's format.
 ```
 
-The release identifies the starting version for Update and comes from the
-approved tag's `plugin.json`. The revision identifies the immutable content used
-for ordinary work.
-The rules tree is present for a vendored copy. Its subtree is the directory
-holding the linked `SKILL.md` in the adoption commit. Setup establishes the
-source and verifies correspondence with the upstream revision. Update changes
-the revision and, where applicable, the tree as part of an approved migration.
-
-## Resolve before work
-
-Use the committed adoption entry for the selected checkout. Read the effective
-root instructions too. If a working copy edit changes the adoption fields or
-the source selector, reconcile it before using the edited entry. Treat missing,
-conflicting or unavailable versioned bindings as a blocker for dependent work.
-
-- **Named skill from the Codex plugin.** Use `$engineering-compass:engineering-compass` and
-  `~/.local/share/engineering-compass` as the Git checkout for rules. Plugin
-  upgrades replace the installed copy. Keep local refs in the persistent
-  checkout.
-- **Named skill from a standalone installation.** Load `$engineering-compass` and use the intended installed
-  Git checkout behind the discovered skill.
-- **Vendored copy.** Use the repository-relative directory named by the entry.
-  Its committed tree at `HEAD` must match the recorded tree before reading it.
-  Read `SKILL.md` and this contract from that tree using Git.
-  Treat the verified tree as the rule source even if files in the working copy
-  have been edited. Reconcile conflicting edits before using the changed loader.
-
-Both named routes read `refs/engineering-compass/approved/<revision>` from the
-selected checkout. Use the commit from the adoption entry regardless of that
-checkout's `HEAD`.
-
-Use native Git commands to read the approved objects. For a named route,
-verify that the approved ref resolves to the exact recorded commit. Use its
-`skills/engineering-compass` subtree, or the rule paths at its root for an
-older published package. For a vendored route, verify the committed tree at
-the repository-relative package path against the recorded tree OID.
-
-Locate each required file with `git ls-tree` in the selected tree, and read
-its regular-file blob with `git cat-file blob`. Disable Git replacement
-objects with `git --no-replace-objects`. Start at `principles.md` and follow
-its Context Map. Resolve relative links against the same tree so their
-contents come from the same revision.
-
-These ordinary reads are local. If an object is unavailable, report its OID
-and source so Setup or Update can restore it. Treat a loaded snapshot as the
-authority for the session and verify changed adoption from a fresh context.
-
-## Existing unversioned adoption
-
-Keep a proven previous source for ordinary work until the operator approves a
-transition. Use Setup to audit an entry without a published version before
-starting versioned migrations. A named global route can use
-`refs/engineering-compass/legacy` in
-the selected checkout when that ref retains the exact source the route used.
-A confirmed legacy ref selects the same immutable lookup procedure.
-A legacy repo-relative entry continues to use its established copy.
-If the route or contents cannot be established, report the ambiguity and use
-the explicit Setup or Update audit. The discovery checkout alone is evidence
-of what is installed, so establish its relationship to the repository before
-using a legacy ref.
+The comparison and refresh instructions in the entry also apply to packages
+that predate the version-based workflow. Keep repository-specific policy
+reachable from root in every version.
