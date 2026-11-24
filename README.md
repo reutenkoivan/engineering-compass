@@ -17,9 +17,6 @@ To test from a local checkout, use `codex plugin marketplace add /path/to/engine
 in the first step. In the desktop app, choose the Engineering Compass marketplace
 in the Plugins Directory and install the plugin. Start a new chat after installation.
 
-For an existing installation, follow the [procedure for switching to the plugin](skills/engineering-compass-update/bundle-refresh.md#switch-to-the-plugin)
-to retain approved revisions and retire duplicate skill discovery paths.
-
 ## Update the plugin
 
 Capture the repository's [active release](skills/engineering-compass-update/migration-workflow.md#capture-the-current-release-before-updating)
