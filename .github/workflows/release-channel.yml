@@ -1,0 +1,40 @@
+name: Deliver plugin
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published version tag to deliver or roll back to
+        required: true
+        type: string
+      expected_release:
+        description: Current release branch commit, or missing for bootstrap
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deliver:
+    name: Update release branch
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: engineering-compass-deliver
+      queue: max
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Deliver the verified package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          EXPECTED_RELEASE: ${{ inputs.expected_release }}
+        run: python3 -B .github/scripts/release.py deliver "$TAG" "$EXPECTED_RELEASE"

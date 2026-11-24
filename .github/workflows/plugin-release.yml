@@ -1,0 +1,80 @@
+name: Plugin release
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      original_run_id:
+        description: Original push-to-main workflow run ID for publication-only recovery
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Validate plugin
+    if: github.event_name != 'workflow_dispatch' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      candidate: ${{ steps.candidate.outputs.candidate }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test release and migration metadata
+        run: python3 -B -m unittest discover -s tests
+      - name: Verify publication candidate
+        id: candidate
+        env:
+          GH_TOKEN: ${{ github.event_name == 'workflow_dispatch' && github.token || '' }}
+        run: python3 -B .github/scripts/release.py verify "$RUNNER_TEMP/release-candidate.json"
+      - name: Record the eligible push for recovery
+        if: github.event_name == 'push' && steps.candidate.outputs.candidate != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-candidate
+          path: ${{ runner.temp }}/release-candidate.json
+          if-no-files-found: error
+          overwrite: true
+
+  publish:
+    name: Publish version
+    needs: verify
+    if: github.event_name != 'pull_request' && needs.verify.outputs.candidate != ''
+    runs-on: ubuntu-latest
+    concurrency:
+      group: engineering-compass-publish
+      queue: max
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.publish.outputs.tag }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Create and confirm the tagged release
+        id: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE: ${{ needs.verify.outputs.candidate }}
+        run: python3 -B .github/scripts/release.py publish "$CANDIDATE"
+
+  deliver:
+    name: Deliver to release
+    needs: publish
+    if: github.event_name == 'push' && needs.publish.outputs.tag != ''
+    permissions:
+      contents: write
+    uses: ./.github/workflows/release-channel.yml
+    with:
+      tag: ${{ needs.publish.outputs.tag }}

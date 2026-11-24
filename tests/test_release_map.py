@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import re
+import sys
 import unittest
 
 
@@ -8,19 +9,16 @@ ROOT = Path(__file__).resolve().parents[1]
 UPDATE = ROOT / "skills/engineering-compass-update"
 LINK = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
 
-
-def release_rows():
-    for line in (UPDATE / "release-map.md").read_text().splitlines():
-        if line.startswith("| `"):
-            release, previous, migrations = (cell.strip() for cell in line.split("|")[1:-1])
-            yield release.strip("`"), previous.strip("`"), migrations
+sys.path.insert(0, str(ROOT / ".github/scripts"))
+from release import release_rows
 
 
 class ReleaseMapTest(unittest.TestCase):
     def test_published_map_is_an_ordered_chain_ending_at_the_plugin_version(self):
         previous = "—"
         seen = set()
-        for release, predecessor, _ in release_rows():
+        rows = release_rows((UPDATE / "release-map.md").read_text())
+        for release, predecessor, _ in rows:
             self.assertNotIn(release, seen)
             self.assertEqual(predecessor, previous, release)
             seen.add(release)
@@ -30,7 +28,8 @@ class ReleaseMapTest(unittest.TestCase):
 
     def test_map_selects_each_migration_once_with_prerequisites_in_order(self):
         seen = set()
-        for release, _, migrations in release_rows():
+        rows = release_rows((UPDATE / "release-map.md").read_text())
+        for release, _, migrations in rows:
             if migrations == "—":
                 continue
             for reference in migrations.split(", "):
