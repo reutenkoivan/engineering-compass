@@ -1,0 +1,20 @@
+{
+  "name": "engineering-compass",
+  "interface": {
+    "displayName": "Engineering Compass"
+  },
+  "plugins": [
+    {
+      "name": "engineering-compass",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    }
+  ]
+}

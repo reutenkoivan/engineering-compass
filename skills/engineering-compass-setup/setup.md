@@ -5,6 +5,22 @@ adoption covers the foundation and all rule sets together. For an existing
 integration or a change to rules, routing or local differences, identify the
 affected scope and audit the consequences.
 
+## Select the rule revision
+
+Use the [adoption contract](../engineering-compass/adoption.md) to resolve
+existing adoptions. For a first adoption through the Codex plugin, use Update's
+[published target procedure](../engineering-compass-update/migration-workflow.md#fetch-the-fixed-target)
+to select and verify the publisher release and its exact revision. Use Setup
+and the rules from that revision for the audit, even if the plugin cache
+changes. For an older published snapshot, use its proven full commit from
+the [release map](../engineering-compass-update/release-map.md) as the release ID.
+
+When applying approved plugin-backed setup, create the persistent checkout
+identified in the adoption contract from the reviewed full checkout if it is
+absent. Reuse the existing Engineering Compass checkout at that path when
+present. If the reviewed commit is missing there, fetch it from the reviewed
+checkout. Verify the commit and retain it as described below.
+
 ## Resolve local rules
 
 Audit the adopted rules against active instructions, nearby canonical documents,
@@ -42,18 +58,39 @@ for an already adopted Tooling set follows the affected scope.
 ## Root configuration and verification
 
 Prepare a reviewable root `AGENTS.md` entry that adopts the whole skill
-repository-wide. For a repository copy, link to its `SKILL.md` using a
-repository-relative path. For a user-installed copy, name `$engineering-compass`
-in the entry and verify that skill discovery resolves the intended copy in
-each environment that relies on the entry. Keep local policy and approved
-differences reachable from root. The Context Map owns the conditions for
-reading each rule set.
+repository-wide and directs Codex to apply Compass automatically before
+planning or starting repository work. Use the fields and source selector in
+the base skill's [adoption contract](../engineering-compass/adoption.md).
+Keep local policy and approved differences reachable from root.
+
+Identify the exact upstream commit under review and verify the rule snapshot
+against it. For a global route, retain the verified commit in the Git checkout
+selected by the adoption contract with `git update-ref` at
+`refs/engineering-compass/approved/<revision>`. An existing ref must already
+point to that commit. Check availability in every environment relying on it.
+For a vendored route, use the published rule package as one tree in the
+adoption commit. Compare paths, modes and contents to upstream and record the
+local subtree OID. Direct Codex to read the base entry and loader from that
+committed tree. When vendoring Setup too, preserve its package and the base
+package as canonical siblings, so that Setup can read the adoption contract.
+Resolve a custom legacy copy through the local policy audit before recording
+a published revision.
+
+For a first-refresh audit requested with a staged target checkout, use the
+Setup procedure and reviewed Compass package from that exact target. Keep the
+existing adoption and discovery route active during preparation. If the
+previous source cannot be identified, report that limit and obtain explicit
+approval to adopt the audited target and its reconciled local policy.
 
 Prepare the root entry and affected local changes together, including decisions
 about conflicts, retained local contracts and executable projections.
-Apply the authorized transition once the replacement routes exist. Keep the
-repository adoption entry in root `AGENTS.md`. Local surface routes link to the
-applicable rule and source owners.
+Apply the authorized transition once the replacement routes exist. Include
+the entry and affected policy and package files in one adoption commit.
+Prepare the commit for the repository's normal approval flow. Where there is
+no `HEAD`, this is part of the repository's initial commit. Create or select
+that commit when authorized, and report activation as pending until the
+approved commit is selected for ordinary work. Keep the adoption entry in
+root `AGENTS.md` and link local surfaces to their rule and source owners.
 
 Read back effective root and local instructions. Verify links, rule coverage,
 local differences, required enforcement, and ordinary routing through both

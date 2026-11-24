@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "engineering-compass",
+  "version": "0.1.0",
+  "description": "Engineering rules, repository setup, and migrations for web development.",
+  "repository": "https://github.com/reutenkoivan/engineering-compass",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Engineering Compass"
+      }
+    }
+  }
+}

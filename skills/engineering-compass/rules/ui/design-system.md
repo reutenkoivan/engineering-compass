@@ -136,7 +136,7 @@ combinations of patterns remain uncertain.
    Review business intent through the actual architecture,
    transitions, side effects and proof in both directions. Obtain approval of
    the reviewed basis before dependent implementation. When adopting the
-   workflow as policy, follow the [UI adoption checks](../../setup.md#ui-adoption-checks).
+   workflow as policy, use the UI adoption checks owned by the Engineering Compass Setup skill.
 
 ## Visual profile and style
 

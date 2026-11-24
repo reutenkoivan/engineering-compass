@@ -3,39 +3,57 @@
 Engineering Compass routes web development work to the engineering rules that
 apply, from defining product behavior to delivering and verifying changes.
 
-## Install for your user in Codex
+## Install the Codex plugin
 
-Run this command to install every skill in `skills/` together.
-
-```sh
-mkdir -p "$HOME/.local/share" "$HOME/.agents/skills" &&
-  git clone https://github.com/reutenkoivan/engineering-compass.git \
-    "$HOME/.local/share/engineering-compass" &&
-  ln -s "$HOME/.local/share/engineering-compass/skills" \
-    "$HOME/.agents/skills/engineering-compass-bundle"
-```
-
-Codex follows the link and makes the skills available across repositories.
-See the [Codex skill discovery documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
-
-For an earlier installation, move the old `engineering-compass` and
-`engineering-compass-setup` directories out of `~/.agents/skills` before running
-the command. Keep them until the new installation works in Codex.
-
-## Update the installation
+Add the GitHub marketplace and install Engineering Compass. The plugin includes
+the Compass, Setup, and Update skills.
 
 ```sh
-git -C "$HOME/.local/share/engineering-compass" pull --ff-only
+codex plugin marketplace add reutenkoivan/engineering-compass
+codex plugin add engineering-compass@engineering-compass
 ```
 
-Skills added to `skills/` become available with the same update.
+To test from a local checkout, use `codex plugin marketplace add /path/to/engineering-compass`
+in the first step. In the desktop app, choose the Engineering Compass marketplace
+in the Plugins Directory and install the plugin. Start a new chat after installation.
+
+For an existing installation, follow the [procedure for switching to the plugin](skills/engineering-compass-update/bundle-refresh.md#switch-to-the-plugin)
+to retain approved revisions and retire duplicate skill discovery paths.
+
+## Update the plugin
+
+Capture the repository's [active release](skills/engineering-compass-update/migration-workflow.md#capture-the-current-release-before-updating)
+before refreshing the installed skills.
+
+```sh
+codex plugin marketplace upgrade engineering-compass
+```
+
+Start a new chat to use the updated skills. Repositories continue to use the
+rule revisions recorded in their root `AGENTS.md`. Existing symlink installs
+can follow the [symlink refresh procedure](skills/engineering-compass-update/bundle-refresh.md#refresh-a-symlink-installation).
 
 ## Adopt in a repository
 
-Invoke `$engineering-compass-setup` from the repository you want to prepare.
-It follows the [repository setup procedure](skills/engineering-compass/setup.md)
-to audit existing policy, add the adoption entry to the root `AGENTS.md`, and
-verify the result. You can also invoke it to verify or repair an existing adoption.
+Invoke `$engineering-compass:engineering-compass-setup` from the repository
+you want to prepare. A standalone installation exposes `$engineering-compass-setup`.
+It follows the [repository setup procedure](skills/engineering-compass-setup/setup.md)
+to audit existing policy, record the approved revision in the root `AGENTS.md`,
+and verify automatic use of the rules. You can also invoke it to verify or
+repair an existing adoption.
 
-If your repository links into a checkout of this project, point its `AGENTS.md`
-entry and rule links to `skills/engineering-compass/` inside that checkout.
+For a plugin-backed adoption, Setup uses a persistent Git checkout at
+`~/.local/share/engineering-compass` to retain approved rule revisions across
+plugin updates. Vendored adoptions use the recorded tree in the project.
+
+For a versioned repository-local route, Setup records a vendored Git tree in
+the consumer repository. Review existing links to external checkouts as legacy
+routes when adopting a revision.
+
+## Migrate an adopted repository
+
+Invoke `$engineering-compass:engineering-compass-update` to fetch the published
+target, see the migration graph, and approve changes. A standalone installation
+exposes `$engineering-compass-update`. Update reads
+the [release map](skills/engineering-compass-update/release-map.md) and the
+Markdown migrations it selects, then prepares and verifies the approved changes.
