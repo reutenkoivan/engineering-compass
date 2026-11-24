@@ -1,25 +1,23 @@
 # Repository setup
 
-Establish current adoption from the root entry and local policy. Initial
-adoption covers the foundation and all rule sets together. For an existing
-integration or a change to rules, routing or local differences, identify the
-affected scope and audit the consequences.
+Start with the [adoption contract](../engineering-compass/adoption.md) and the
+repository's effective local policy. Use the active installed version for the
+entire Setup. When Update calls Setup, use the package it just verified.
 
-## Select the rule revision
+## Select the work
 
-Use the [adoption contract](../engineering-compass/adoption.md) to resolve
-existing adoptions. For first adoption or the first versioned adoption of
-legacy rules, use the [published target procedure](../engineering-compass-update/migration-workflow.md#fetch-the-fixed-target)
-to select the version from the release channel. Audit the rules from the
-verified tag using this Setup procedure. For legacy adoption, capture the
-effective rules and audit their transition before recording the first
-approved version.
-
-When applying approved plugin-backed setup, create the persistent checkout
-identified in the adoption contract from the reviewed full checkout if it is
-absent. Reuse the existing Engineering Compass checkout at that path when
-present. If the reviewed commit is missing there, fetch it from the reviewed
-checkout. Verify the commit and retain it as described below.
+- First adoption covers the foundation and all rule sets in the installed
+  package. Read the installed principles and Context Map to find the owners.
+- For a matching version, verify the selector, effective rules, local links,
+  and applicable enforcement. Report a valid setup directly. Audit the
+  affected scope before repairing an invalid integration.
+- After a rollback, use the installed principles, Context Map, and affected
+  rule owners to check the existing integration and local policy. Keep
+  compatible local rules. Reconcile links and enforcement with the installed
+  rules and apply the verified result.
+- For an older or unversioned adoption, give the user the exact Update
+  invocation for this installation. Update can use the audit and verification
+  sections below to prepare its target integration.
 
 ## Resolve local rules
 
@@ -57,45 +55,22 @@ for an already adopted Tooling set follows the affected scope.
 
 ## Root configuration and verification
 
-Prepare a reviewable root `AGENTS.md` entry that adopts the whole skill
-repository-wide and directs Codex to apply Compass automatically before
-planning or starting repository work. Use the fields and source selector in
-the base skill's [adoption contract](../engineering-compass/adoption.md).
-Keep local policy and approved differences reachable from root.
+Prepare the root entry from the
+[adoption contract](../engineering-compass/adoption.md#root-entry) and the
+affected local changes together. Verify that Codex can resolve the selected
+global skill and version in the active environment. Present conflicts and changes
+to local policy or enforcement for the user to decide. Apply compatible
+integration changes within the request once their prerequisites are met.
 
-Identify the exact upstream commit under review and verify the rule snapshot
-against it. For a global route, retain the verified commit in the Git checkout
-selected by the adoption contract with `git update-ref` at
-`refs/engineering-compass/approved/<revision>`. An existing ref must already
-point to that commit. Check availability in every environment relying on it.
-For a vendored route, use the published rule package as one tree in the
-adoption commit. Compare paths, modes and contents to upstream and record the
-local subtree OID. Direct Codex to read the base entry and loader from that
-committed tree. When vendoring Setup too, preserve its package and the base
-package as canonical siblings, so that Setup can read the adoption contract.
-Resolve a custom legacy copy through the local policy audit before recording
-a published revision.
-
-For a first-refresh audit requested with a staged target checkout, use this
-Setup procedure and the reviewed Compass rules from that tag. Keep the
-existing adoption and discovery route active during preparation. If the
-previous source cannot be identified, report that limit and obtain explicit
-approval to adopt the audited target and its reconciled local policy.
-
-Prepare the root entry and affected local changes together, including decisions
-about conflicts, retained local contracts and executable projections.
-Apply the authorized transition once the replacement routes exist. Include
-the entry and affected policy and package files in one adoption commit.
-Prepare the commit for the repository's normal approval flow. Where there is
-no `HEAD`, this is part of the repository's initial commit. Create or select
-that commit when authorized, and report activation as pending until the
-approved commit is selected for ordinary work. Keep the adoption entry in
-root `AGENTS.md` and link local surfaces to their rule and source owners.
-
-Read back effective root and local instructions. Verify links, rule coverage,
-local differences, required enforcement, and ordinary routing through both
-the root entry and explicit skill invocation. Report prepared, applied and
-verified configuration distinctly, with any agreed later migration and its owner.
+Verify the candidate's root entry, links, rule coverage, local differences,
+enforcement, and ordinary routing through the root entry and explicit skill
+invocation. Before applying, recheck the installed version and affected
+working files. Preserve unrelated edits. Apply the verified changes in the
+calling working copy and read back its effective files and resolved rules.
+If readback fails, restore this operation's changes while preserving user
+edits. Record the installed version in the entry only as part of the verified
+configuration. Report the version, applied changes, and any outstanding
+decisions or environments still to verify.
 
 ## UI adoption checks
 
