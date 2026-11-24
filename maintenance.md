@@ -63,6 +63,43 @@ Verify installation and marketplace upgrade from a Git-backed catalog in an
 isolated Codex configuration. Verify that an adopted repository still resolves
 its approved rules after the plugin cache changes.
 
+Merge the workflows on their own before merging the package release that
+changes the installation command. Run the manual Deliver plugin workflow
+on `main` with tag `v0.1.0` and expected release head `missing`. Verify the
+marketplace and a Git clone can both read the bootstrapped `release` branch.
+Then merge the package release with the migration record and the new
+installation command. The bootstrap package has the original Setup and
+Update behavior. Verify the introducing package has reached `release` before
+assessing version-only migrations.
+
+The **Validate plugin** check runs on every PR to `main`. Require that check
+and up-to-date branches before merging. A push to `main` creates a version
+tag only when the package changes. Keep `v*` tags protected from changes
+and deletion and protect `release` from force pushes. Verify repository
+settings allow the Actions token to create a version tag and append a
+delivery commit in the intended jobs.
+
+For a pause, add `# Skip release: <reason>` and comment out the entire
+automatic `deliver` job in `plugin-release.yml`. Keep the manual delivery
+workflow available. Before manually delivering a rollback, let eligible
+old pushes reach the candidate upload or finish publication before
+cancelling their runs. Confirm that old runs capable of delivery are
+terminal and keep their old delivery configurations out of retries while
+paused. Cancellation can also interrupt publication. Check the tag, the
+GitHub Release, and the delivered version separately.
+
+Recover interrupted publication by dispatching **Plugin release** on
+`main` with the eligible original push's run ID. Recovery verifies the
+candidate evidence uploaded before publication and performs publication
+only. Retain that artifact until publication is confirmed. If the run
+stopped before the candidate upload or the artifact expired, report
+publication as blocked pending trusted evidence of that exact eligible
+push. A newer push with the same version cannot supply that evidence.
+While paused, deliver a confirmed version by dispatching **Deliver plugin**
+on `main` with its tag and the observed current `release` commit. Uncomment
+the automatic job to resume delivery for future runs. Versions published
+during the pause are available for manual delivery.
+
 ## Migration records
 
 When a change requires repository edits or a material operator decision,
