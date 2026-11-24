@@ -9,7 +9,7 @@ Add the GitHub marketplace and install Engineering Compass. The plugin includes
 the Compass, Setup, and Update skills.
 
 ```sh
-codex plugin marketplace add reutenkoivan/engineering-compass
+codex plugin marketplace add reutenkoivan/engineering-compass --ref release
 codex plugin add engineering-compass@engineering-compass
 ```
 
