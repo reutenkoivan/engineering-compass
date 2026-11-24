@@ -7,8 +7,9 @@
     {
       "name": "engineering-compass",
       "source": {
-        "source": "local",
-        "path": "./"
+        "source": "url",
+        "url": "https://github.com/reutenkoivan/engineering-compass.git",
+        "ref": "v0.1.0"
       },
       "policy": {
         "installation": "AVAILABLE",
