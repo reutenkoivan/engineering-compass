@@ -15,6 +15,14 @@ This makes `$engineering-compass` available across repositories. See the
 
 ## Adopt in a repository
 
-Invoke `$engineering-compass` to start first adoption. Follow the
-[repository setup procedure](setup.md) to audit the existing policies and add
-the adoption entry to the repository's root `AGENTS.md`.
+With `$engineering-compass` installed, send the following prompt in Codex to
+install the companion skill for your user.
+
+```text
+$skill-installer Install .skills/engineering-compass-setup from reutenkoivan/engineering-compass into ~/.agents/skills.
+```
+
+Invoke `$engineering-compass-setup` from the repository you want to prepare.
+It follows the [repository setup procedure](setup.md) to audit existing policy,
+add the adoption entry to the root `AGENTS.md`, and verify the result. You can
+also invoke it to verify or repair an existing adoption.
