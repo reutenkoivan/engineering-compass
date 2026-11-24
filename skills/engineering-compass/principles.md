@@ -184,12 +184,4 @@ changed. Completion means the responsibility, consumers, documentation, and
 evidence agree, superseded parts are removed, and remaining limitations are
 explicit. A plan for an external action is not evidence that it happened.
 
-**Invariant:** after this skill's initial creation and setup are complete, any
-change to any skill file requires a separate maintenance task, including a typo,
-link, formatting, helper, rule, or package replacement. In an ordinary task,
-record the defect, impact, and needed fix; continue independent work. A blocker
-or Boy Scout cleanup does not authorize an incidental skill edit. An existing
-task already dedicated to that exact maintenance needs no additional task.
-Context economy is subordinate to sufficient decisions and evidence. During
-skill validation compare equivalent tasks only after correctness; distinguish
-human cognitive load from model input cost. Ordinary use requires no metrics log.
+Context economy is subordinate to sufficient decisions and evidence.

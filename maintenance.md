@@ -1,6 +1,9 @@
 # Skill maintenance
 
 Initial creation and setup can correct their own defects before completion.
+Afterward, make changes to skill files in a dedicated maintenance task. A task
+already scoped to the change qualifies. In an ordinary task, record the defect,
+its impact, and the needed fix, then continue independent work.
 
 ## Planning
 
@@ -19,8 +22,10 @@ Initial creation and setup can correct their own defects before completion.
    applicability, and conflicts require the corresponding concrete operator
    decision; already granted exact approval remains valid.
 4. Identify impacts on adoption, routing, applicability and local differences.
-   Use the affected scope for the integration audit. Expand to a full audit
-   when the impact cannot be bounded.
+   Use the [repository setup procedure](skills/engineering-compass/setup.md)
+   to audit changes to rule scope, routing, adoption, or local differences.
+   Audit the affected scope and expand to a full audit when the baseline or
+   impact cannot be bounded.
 
 ## Implementation
 
@@ -36,10 +41,23 @@ repository-wide code migration.
 
 Verify changed file format and links, coverage of the accepted meaning,
 adoption and local differences, and the affected behavioral probes. A shared
-routing change requires broader isolation and composite-task probes. Compare
-context cost only after sufficient results; use exact available metrics and label
-approximations. Keep measurement reports outside runtime instructions.
+routing change requires broader isolation and composite-task probes. After
+verifying correctness, compare context cost for equivalent tasks. Distinguish
+human cognitive load from model input cost, use exact available metrics and
+label approximations. Keep measurement reports outside runtime instructions.
 
 Finish by reporting the changed guarantee, proof, affected configuration, and
 remaining limitations. Ordinary tasks do not search for a new revision or change
 the skill as incidental cleanup.
+
+## UI pattern catalog
+
+When editing the [UI pattern catalog](skills/engineering-compass/rules/ui/pattern-catalog.yaml),
+use its identity rule. Verify a single YAML document, unique keys and IDs,
+textual scalars, required fields, valid internal links and reciprocal
+compatibility. Keep references local-first through textual descriptions and
+search terms. Verify candidate selection with independent expectations for
+multiple matches, one match and no match. Repeat a scenario with only the
+product-category label changed and compare the outcome. When source hints
+change, verify retrieval and distinguish what was found from what still needs
+evidence.

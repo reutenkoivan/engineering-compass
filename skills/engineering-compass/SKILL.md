@@ -1,6 +1,6 @@
 ---
 name: engineering-compass
-description: Apply Engineering Compass in web repositories that adopt it, from defining product behavior and contracts to implementation, testing, review, and delivery. Use also to set up, audit, or maintain Engineering Compass.
+description: Apply Engineering Compass in web repositories that adopt it, from defining product behavior and contracts to implementation, testing, review, and delivery. Use also to set up or audit repository adoption.
 ---
 
 # Engineering Compass
@@ -15,11 +15,8 @@ entry. Reuse that fact when the entry is already in context.
 Choose all applicable routes before dependent planning or changes. Reapply
 these conditions in place if a new fact changes the task or the audit scope:
 
-- For skill edits, read [maintenance.md](maintenance.md).
 - Read [setup.md](setup.md) for first adoption or changes to the repository's
-  Compass integration, the skill's own routing or rule scope, or approved local
-  differences. Also use Setup for a maintenance audit whose baseline or
-  impact cannot be bounded.
+  Compass integration or approved local differences.
 - Read [principles.md](principles.md) for work in a repository whose root
   `AGENTS.md` adopts Engineering Compass, or when auditing adoption. Use
   the scope established by any applicable procedure as input to classification.

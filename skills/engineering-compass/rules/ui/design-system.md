@@ -136,8 +136,7 @@ combinations of patterns remain uncertain.
    Review business intent through the actual architecture,
    transitions, side effects and proof in both directions. Obtain approval of
    the reviewed basis before dependent implementation. When adopting the
-   workflow as policy, use [Maintenance](../../maintenance.md) and verify the
-   initial and incremental paths plus isolation and mixed routing when affected.
+   workflow as policy, follow the [UI adoption checks](../../setup.md#ui-adoption-checks).
 
 ## Visual profile and style
 
@@ -212,14 +211,3 @@ the work for retrieval. Optional `aliases` and `compatible_with` contain textual
 names and pattern IDs. Mappings and sequences organize the document. Every
 scalar key and value is text. The catalog's `selection_policy` owns selection
 and identity semantics.
-
-## Catalog maintenance
-
-Use the catalog's identity rule when entries change. Verify a single YAML
-document, unique keys and IDs, textual scalars, required fields, valid internal
-links and reciprocal compatibility. Keep references local-first through textual
-descriptions and search terms. Verify candidate selection with independent
-expectations for multiple matches, one match and no match. Repeat a scenario
-with only the product-category label changed and compare the outcome. When
-source hints change, verify retrieval and the distinction between what was
-found and what still needs evidence.
